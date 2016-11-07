@@ -1,0 +1,42 @@
+{% extends "header.html" %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+				<div class="navbar-header">
+					 
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button> <a class="navbar-brand" href="#">LOGO</a>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<form class="navbar-form navbar-left" role="search">
+						<div class="input-group">
+					      <input type="text" class="form-control" placeholder="Search for...">
+					      <span class="input-group-btn">
+					        <button class="btn btn-secondary" type="button">Go!</button>
+					      </span>
+					    </div>
+					</form>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="/profile"><img id="navbar_profile_picture" src="{{ url_for('static', filename='images/image.jpg') }}">  {{ name }}</a>
+						</li>
+						<li>
+							<a id="logout_button" href="/dropsession">Log Out</a>
+						</li>						
+					</ul>
+				</div>
+				
+			</nav>
+		</div>
+	</div>
+</div>
+<div class="container" id="page">
+	{% block navbar %}
+	{% endblock %}
+</div>
+
+{% endblock %}
