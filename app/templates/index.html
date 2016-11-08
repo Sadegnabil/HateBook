@@ -2,10 +2,14 @@
 {% block content %}
 
 <div class="container" id="page">
-  	<!-- Trigger the modal with a button -->
-  	<button type="button" class="btn btn-info" id="login_modal_button">Login</button>
-  	<!-- Trigger the modal with a button -->
-  	<button type="button" class="btn btn-info" id="register_modal_button">Register</button>
+	<div class="col-md-4 text-center" id="buttons">
+		<!-- Trigger the modal with a button -->
+	  	<button type="button" class="btn btn-info btn-lg" id="login_modal_button">Login</button>
+	  	<!-- Trigger the modal with a button -->
+	  	<button type="button" class="btn btn-info btn-lg" id="register_modal_button">Register</button>
+	</div>  	
+</div>
+
 
   	<!-- Login -->
   	<div class="modal fade" id="login_modal_form" role="dialog">
@@ -63,7 +67,7 @@
 	</div>
 	<!-- END LOGIN -->
 
-</div>
+
 
 
 {% endblock %}
