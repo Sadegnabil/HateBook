@@ -10,12 +10,12 @@ $(document).ready(function(){
 
 function toogleView(toogle) {
 	if (toogle.checked) {
-		$("#modify").hide();
-		$("#view").show();		
-	}
-	else {
 		$("#view").hide();
 		$("#modify").show();
+	}
+	else {
+		$("#modify").hide();
+		$("#view").show();		
 	}
 }
 

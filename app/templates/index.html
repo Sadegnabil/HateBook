@@ -2,9 +2,9 @@
 {% block content %}
 
 <div class="container" id = "index">
-		<div class="col-md-offset-4 col-md-4 text-center"><img src="http://placehold.it/350x150"/></div>
-        <div class="col-md-offset-4 col-md-4"><button type="button" class="btn btn-success btn-lg" id="login_modal_button">Login</button></div>
-        <div class="col-md-offset-4 col-md-4"><button type="button" class="btn btn-success btn-lg" id="register_modal_button">Register</button></div>
+		<div class="col-md-offset-2 col-md-8 text-center"><img id="banner" src="{{ url_for('static', filename='images/website/banner.png') }}"></div>
+        <div class="col-md-offset-4 col-md-4 text-center"><button type="button" class="btn btn-new btn-lg" id="login_modal_button">Login</button></div>
+        <div class="col-md-offset-4 col-md-4 text-center"><button type="button" class="btn btn-new btn-lg" id="register_modal_button">Register</button></div>
 
 </div>
 
@@ -26,7 +26,7 @@
 		          	{{ login_form.hidden_tag() }}
 		          	{{ login_form.username_login(placeholder="Username", class="form-control inputlg") }}
 		          	<br>
-		          	{{ login_form.password_login(placeholder="Password", class="form-control inputlg") }}
+		          	{{ login_form.password_login(placeholder="Password", class="form-control inputlg", type="password") }}
 			
 		        </div>
         		<div class="modal-footer">
@@ -59,7 +59,7 @@
 		          	<br>
 		          	{{ register_form.username_register(placeholder="Username", class="form-control inputlg") }}
 		          	<br>
-		          	{{ register_form.password_register(placeholder="Password", class="form-control inputlg") }}
+		          	{{ register_form.password_register(placeholder="Password", class="form-control inputlg", type="password") }}
 		          	<br>
 		          	{{ register_form.country_register(placeholder="Country", class="form-control inputlg") }}
 			

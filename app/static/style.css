@@ -2,6 +2,16 @@
 	margin-right:20px;
 }
 
+#logo {
+	width: 25px;
+	height: 25px;
+}
+
+#banner {
+	height: 100%;
+	width: 100%;
+}
+
 #page {
 	padding-top: 30px;
 }
@@ -37,9 +47,32 @@ body {
     border: 1px !important;
 }
 
-/*tr:hover{
-	color:black;
-}*/
+/*LOGIN and REGISTER buttons style*/
+.btn-new {
+	color: white;
+	background: #3b5978;
+	border-color: #3b5978;
+}
+
+.btn-new:hover {
+	color: white;
+	background: #4c739a;
+	border-color: #3b5978;
+}
+
+.btn-new:focus,
+.btn-new:active {
+	color: white;
+  	background-color: #4c739a;
+  	border-color: #3b5978;
+}
+
+.btn-lg {
+  width: 70%;
+  font-size: 25px;
+  border-radius: 100px;
+  margin-top: 50px;
+}
 
 backup {
 	background: #3b5978; /* For browsers that do not support gradients */
@@ -49,16 +82,4 @@ backup {
     background: linear-gradient(#3b5978, #3b4a78); /* Standard syntax */
     background-repeat:no-repeat;
 	background-size:100%;
-}
-
-.btn-lg {
-  width: 100%;
-  font-size: 25px;
-  border-radius: 100px;
-  margin-top: 50px;
-}
-
-#index img {
-	height: 150px;
-	width: 150px;
 }
