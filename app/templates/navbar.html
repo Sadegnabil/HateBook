@@ -22,7 +22,7 @@
 					</form>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a href="/profile"><img id="navbar_profile_picture" src="{{ url_for('static', filename='images/image.jpg') }}">  {{ name }}</a>
+							<a href="/profile"><img id="navbar_profile_picture" src="{{ url_for('static', filename='images/image.jpg') }}">   {{ user.username }}</a>
 						</li>
 						<li>
 							<a id="logout_button" href="/dropsession">Log Out</a>

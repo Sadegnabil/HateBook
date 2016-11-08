@@ -1,32 +1,88 @@
 {% extends "navbar.html" %}
 {% block navbar %}
-<div>
 <br>
-	<div class="col-md-1">
+<div class="row">
+	<div class="col-xs-10 col-sm-10 col-lg-10">
 		<h1>Welcome {{ user.username }}</h1>
-	<input type="checkbox" data-toggle="toggle" data-on="View" data-off="Modify" onchange="#">
-	</div>
 	
+	</div>
+	<div class="col-xs-2 col-sm-2 col-lg-2">
+	<br>
+		<input type="checkbox" checked data-toggle="toggle" name="toogle" data-on="View" data-off="Modify" onchange="toogleView(this)">
+	</div>
+</div>
+	
+<br>
 
-
+<div class="col-md-offset-3 col-xs-6 col-sm-6 col-lg-6" id="view">
 	<div class="table-responsive ">
-  		<table class="table">
+  		<table class="table table-hover">
     		<tbody>
     			<tr>
     				<th>Name</th>
-    				<td contenteditable="true">{{ user.name }}</td>
+    				<td>{{ user.name }}</td>
     			</tr>
     			<tr>
     				<th>Surname</th>
-    				<td contenteditable="true">{{ user.surname }}</td>
+    				<td>{{ user.surname }}</td>
     			</tr>
     			<tr>
-    				<th>Surname</th>
-    				<td contenteditable="true">{{ user.surname }}</td>
+    				<th>Username</th>
+    				<td>{{ user.username }}</td>
+    			</tr>
+    			<tr>
+    				<th>Date of birth</th>
+    				<td>{{ user.surname }}</td>
+    			</tr>
+    			<tr>
+    				<th>Member since</th>
+    				<td>{{ user.registration_date }}</td>
+    			</tr>
+    			<tr>
+    				<th>Country</th>
+    				<td>{{ user.country }}</td>
     			</tr>
     		</tbody>
   		</table>
 	</div>
 </div>
+
+<div class="col-md-offset-3 col-xs-6 col-sm-6 col-lg-6" id="modify" style="display:none">
+	<form method="POST">
+		<div class="table-responsive ">
+  			<table class="table table-hover">
+  				{{ profile.hidden_tag() }}
+	    		<tbody>
+	    			<tr>
+	    				<th>Name</th>
+	    				<td>{{ profile.name() }}</td>
+	    			</tr>
+	    			<tr>
+	    				<th>Surname</th>
+	    				<td>{{ profile.surname() }}</td>
+	    			</tr>
+	    			<tr>
+	    				<th>Username</th>
+	    				<td>{{ profile.username() }}</td>
+	    			</tr>
+	    			<tr>
+	    				<th>Date of birth</th>
+	    				<td>{{ profile.birth() }}</td>
+	    			</tr>
+	    			<tr>
+	    				<th>Member since</th>
+	    				<td>{{ profile.registration_date() }}</td>
+	    			</tr>
+	    			<tr>
+	    				<th>Country</th>
+	    				<td>{{ profile.country() }}</td>
+	    			</tr>
+	    		</tbody>
+    		</table>
+		</div>
+		<input type="submit" class="btn btn-primary" value="Modify">
+	</form>
+</div>
+
 
 {% endblock %}

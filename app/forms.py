@@ -4,19 +4,27 @@ from wtforms import TextField, TextAreaField
 from wtforms.validators import DataRequired
 import datetime
 
-# Create the form class used to store the submitted data before putting them in the database
+# Create the form class used to store the submitted login data
 class Login(FlaskForm):
-	# Title of the task
+	# Username field
 	username_login = TextField('username', validators = [DataRequired()])
-
-	# Description of the task
+	# Password field
 	password_login = TextField('password', validators = [DataRequired()])
 
 
-# Create the form class used to store the submitted data before putting them in the database
+# Create the form class used to store the submitted register data before creating a new user
 class Register(FlaskForm):
-	# Title of the task
+	# Username field
 	username_register = TextField('username', validators = [DataRequired()])
-
-	# Description of the task
+	# Password field
 	password_register = TextField('password', validators = [DataRequired()])
+
+
+# Create the form class used to store the changements to the profile
+class Profile(FlaskForm):
+	name = TextField('name', validators = [DataRequired()])
+	surname = TextField('surname', validators = [DataRequired()])
+	username = TextField('username', validators = [DataRequired()])
+	birth = TextField('birth', validators = [DataRequired()])
+	registration_date = TextField('registration_date', validators = [DataRequired()])
+	country = TextField('country', validators = [DataRequired()])
