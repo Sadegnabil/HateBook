@@ -2,8 +2,8 @@
 {% block navbar %}
 <br>
 <div class="row">
-	<div class="col-xs-10 col-sm-10 col-lg-10">
-		<h1>Welcome {{ user.username }}</h1>
+	<div class="col-xs-8 col-sm-10 col-lg-10">
+		<h2>Welcome {{ user.username }}</h2>
 	
 	</div>
 	<div class="col-xs-2 col-sm-2 col-lg-2">
@@ -14,7 +14,11 @@
 	
 <br>
 
-<div class="col-md-offset-3 col-xs-6 col-sm-6 col-lg-6" id="view">
+<div class="col-md-12 text-center"><img id="large_profile_picture" src="{{ url_for('static', filename='images/image.jpg') }}"></div>
+
+<br>
+
+<div class="col-xs-offset-0 col-md-offset-3 col-xs-12 col-md-6 col-lg-8" id="view">
 	<div class="table-responsive ">
   		<table class="table table-hover">
     		<tbody>
@@ -32,7 +36,7 @@
     			</tr>
     			<tr>
     				<th>Date of birth</th>
-    				<td>{{ user.surname }}</td>
+    				<td>{{ user.birth }}</td>
     			</tr>
     			<tr>
     				<th>Member since</th>
@@ -42,12 +46,16 @@
     				<th>Country</th>
     				<td>{{ user.country }}</td>
     			</tr>
+    			<tr>
+    				<th>Profile Picture</th>
+    				<td><img id="small_profile_picture" src="{{ url_for('static', filename='images/image.jpg') }}"></td>
+    			</tr>
     		</tbody>
   		</table>
 	</div>
 </div>
 
-<div class="col-md-offset-3 col-xs-6 col-sm-6 col-lg-6" id="modify" style="display:none">
+<div class="col-xs-offset-0 col-md-offset-3 col-xs-12 col-md-6 col-lg-8" id="modify" style="display:none">
 	<form method="POST">
 		<div class="table-responsive ">
   			<table class="table table-hover">
@@ -55,32 +63,37 @@
 	    		<tbody>
 	    			<tr>
 	    				<th>Name</th>
-	    				<td>{{ profile.name() }}</td>
+	    				<td>{{ profile.name_profile(placeholder = user.name, class="form-control inputlg") }}</td>
 	    			</tr>
 	    			<tr>
 	    				<th>Surname</th>
-	    				<td>{{ profile.surname() }}</td>
+	    				<td>{{ profile.surname_profile(placeholder = user.surname, class="form-control inputlg") }}</td>
 	    			</tr>
 	    			<tr>
 	    				<th>Username</th>
-	    				<td>{{ profile.username() }}</td>
+	    				<td>{{ user.username }}</td>
 	    			</tr>
 	    			<tr>
 	    				<th>Date of birth</th>
-	    				<td>{{ profile.birth() }}</td>
+	    				<td>{{ profile.birth_profile(placeholder = user.birth, class="form-control inputlg") }}</td>
 	    			</tr>
 	    			<tr>
 	    				<th>Member since</th>
-	    				<td>{{ profile.registration_date() }}</td>
+	    				<td>{{ user.registration_date }}</td>
 	    			</tr>
 	    			<tr>
 	    				<th>Country</th>
-	    				<td>{{ profile.country() }}</td>
+	    				<td>{{ profile.country_profile(placeholder = user.country, class="form-control inputlg") }}</td>
+	    			</tr>
+	    			<tr>
+	    				<th>Profile Picture</th>
+	    				<td><button>Upload a new profile picture</button></td>
 	    			</tr>
 	    		</tbody>
     		</table>
 		</div>
 		<input type="submit" class="btn btn-primary" value="Modify">
+		<br>
 	</form>
 </div>
 

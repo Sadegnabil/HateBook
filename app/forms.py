@@ -18,13 +18,23 @@ class Register(FlaskForm):
 	username_register = TextField('username', validators = [DataRequired()])
 	# Password field
 	password_register = TextField('password', validators = [DataRequired()])
+	# Surname field
+	surname_register = TextField('surname', validators = [DataRequired()])
+	# Name field
+	name_register = TextField('name', validators = [DataRequired()])
+	# Country field
+	country_register = TextField('country', validators = [DataRequired()])
 
 
 # Create the form class used to store the changements to the profile
 class Profile(FlaskForm):
-	name = TextField('name', validators = [DataRequired()])
-	surname = TextField('surname', validators = [DataRequired()])
-	username = TextField('username', validators = [DataRequired()])
-	birth = TextField('birth', validators = [DataRequired()])
-	registration_date = TextField('registration_date', validators = [DataRequired()])
-	country = TextField('country', validators = [DataRequired()])
+	# Name field
+	name_profile = TextField('name', validators = [DataRequired()])
+	# Surname field
+	surname_profile = TextField('surname', validators = [DataRequired()])
+	# Username field
+	username_profile = TextField('username', validators = [DataRequired()])
+	# Birth field
+	birth_profile = TextField('birth', validators = [DataRequired()])
+	# Country field
+	country_profile = TextField('country', validators = [DataRequired()])

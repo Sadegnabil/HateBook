@@ -5,20 +5,60 @@
 #page {
 	padding-top: 30px;
 }
-/*body { padding-top: 70px; }*/
 
 #navbar_profile_picture {
 	height: 25px;
 	width: 25px;
 }
 
-#buttons {
-	position: absolute;
-	top: 50%;
+#small_profile_picture {
+	height: 70px;
+	width: 70px;
+}
+
+#large_profile_picture {
+	height: 200px;
+	width: 200px;
+}
+
+#index {
+	margin-top: 120px;
+}
+
+body {
+	/*background-color: #3b4a78;*/
+	/*background-color: rgba(59, 89, 120, 1);*/
+	color: black;
+	font-family: 'Montserrat', serif;
+	
+}
+
+.table th, .table td {
+    border: 1px !important;
+}
+
+/*tr:hover{
+	color:black;
+}*/
+
+backup {
+	background: #3b5978; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#3b5978, #3b4a78); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#3b5978, #3b4a78); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#3b5978, #3b4a78); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#3b5978, #3b4a78); /* Standard syntax */
+    background-repeat:no-repeat;
+	background-size:100%;
 }
 
 .btn-lg {
-  padding: 40px 40px;
-  font-size: 30px;
+  width: 100%;
+  font-size: 25px;
   border-radius: 100px;
+  margin-top: 50px;
+}
+
+#index img {
+	height: 150px;
+	width: 150px;
 }
