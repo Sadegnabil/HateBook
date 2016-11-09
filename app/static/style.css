@@ -1,38 +1,6 @@
-#logout_button{
-	margin-right:20px;
-}
-
-#logo {
-	width: 25px;
-	height: 25px;
-}
-
-#banner {
-	height: 100%;
-	width: 100%;
-}
-
+/* GLOBAL */
 #page {
 	padding-top: 30px;
-}
-
-#navbar_profile_picture {
-	height: 25px;
-	width: 25px;
-}
-
-#small_profile_picture {
-	height: 70px;
-	width: 70px;
-}
-
-#large_profile_picture {
-	height: 170px;
-	width: 170px;
-}
-
-#index {
-	margin-top: 120px;
 }
 
 body {
@@ -43,25 +11,52 @@ body {
 	
 }
 
-.table th, .table td {
-    border: 1px !important;
+
+
+/* NAVBAR */
+#logout_button{
+	margin-right:20px;
 }
 
-/*LOGIN and REGISTER buttons style*/
-.btn-new {
+#navbar_profile_picture {
+	height: 25px;
+	width: 25px;
+}
+
+
+
+/* LOGIN SCREEN */
+#logo {
+	width: 25px;
+	height: 25px;
+}
+
+#banner {
+	height: 100%;
+	width: 100%;
+}
+
+#index {
+	margin-top: 120px;
+}
+
+
+
+/* LOGIN SCREEN BUTTONS */
+.modal_buttons {
 	color: white;
 	background: #3b5978;
 	border-color: #3b5978;
 }
 
-.btn-new:hover {
+.modal_buttons:hover {
 	color: white;
 	background: #4c739a;
 	border-color: #3b5978;
 }
 
-.btn-new:focus,
-.btn-new:active {
+.modal_buttons:focus,
+.modal_buttons:active {
 	color: white;
   	background-color: #4c739a;
   	border-color: #3b5978;
@@ -73,6 +68,46 @@ body {
   border-radius: 100px;
   margin-top: 50px;
 }
+
+
+
+/* PROFILE PAGE */
+#small_profile_picture {
+	height: 70px;
+	width: 70px;
+}
+
+#large_profile_picture {
+	height: 170px;
+	width: 170px;
+}
+
+.table th, .table td {
+    border: 1px !important;
+}
+
+#change_profile_picture_text {
+	color: black;
+}
+
+#change_profile_picture_btn,
+#change_profile_picture_btn:hover,
+#change_profile_picture_btn:focus,
+#change_profile_picture_btn:active {
+	background-color: white;
+	border-color: white;
+}
+
+.carousel img {
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+
+}
+
+
+
+
+
 
 backup {
 	background: #3b5978; /* For browsers that do not support gradients */

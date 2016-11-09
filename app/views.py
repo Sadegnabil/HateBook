@@ -4,6 +4,9 @@ from .forms import *
 import datetime
 import os
 import hashlib
+from werkzeug.utils import secure_filename
+# from PIL import Image
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 # Create the route for the index
 @app.route('/', methods=['GET', 'POST'])
@@ -90,8 +93,6 @@ def profile():
 		# Create the profile form
 		profile_form = Profile()
 
-
-
 		# If it's a POST method change the fields
 		if request.method == 'POST':
 
@@ -109,11 +110,12 @@ def profile():
 			db.session.commit()
 			
 			# file = request.files['file']
-			# print file.filename
-			# if file and allowed_file(file.filename):
+			# if file:
 			# 	filename = secure_filename(file.filename)
-			# 	file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
+			# 	extension = filename.rsplit('.', 1)[1]
+			# 	file.save(os.path.join(app.config['UPLOAD_FOLDER'], user.username + ".jpg"))
+				
+				
 
 		# Return the profile page
 		return render_template('profile.html', user = user, profile = profile_form,
@@ -122,10 +124,6 @@ def profile():
 	# Otherwise redirect the user to the index
 	return redirect(url_for('index'))
 
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 @app.before_request
 def before_request():
