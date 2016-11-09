@@ -20,7 +20,9 @@ def index():
 		# If the user exists
 		if user != None:
 			# Encrypt the password
-			password = hashlib.sha1(login_form.password_login.data).hexdigest()
+			tmpPassword = hashlib.sha1()
+			tmpPassword.update(login_form.password_login.data.encode('utf-8'))
+			password = tmpPassword.hexdigest()
 			# If the password is correct
 			if password == user.password:
 				# Save the username
@@ -30,9 +32,14 @@ def index():
 
 	# If the register_form is validated
 	elif register_form.validate_on_submit():
+		
+		# Encrypt the password
+		tmpPassword = hashlib.sha1()
+		tmpPassword.update(register_form.password_register.data.encode('utf-8'))
+
 		# Create the user
 		db.session.add(models.Users(username = register_form.username_register.data,
-			password = hashlib.sha1(register_form.password_register.data).hexdigest(), 
+			password = tmpPassword.hexdigest(), 
 			registration_date = datetime.datetime.utcnow().strftime("%B %d, %Y"),
 			name = register_form.name_register.data, surname = register_form.surname_register.data,
 			country = register_form.country_register.data))
