@@ -74,6 +74,7 @@ def dropsession():
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
 
+	g.user = "Nabil"
 	# If there is a user connected display the profile page
 	if g.user:
 
@@ -83,26 +84,41 @@ def profile():
 		# Create the profile form
 		profile_form = Profile()
 
-		# For each field in the form check if there is a valid entry and update the database
-		if profile_form.name_profile.data != "":
-			user.name = profile_form.name_profile.data
-		if profile_form.surname_profile.data != "":
-			user.surname = profile_form.surname_profile.data
-		if profile_form.birth_profile.data != "":
-			user.birth = profile_form.birth_profile.data
-		if profile_form.country_profile.data != "":
-			user.country = profile_form.country_profile.data
 
-		# Commit the changes
-		db.session.commit()
+
+		# If it's a POST method change the fields
+		if request.method == 'POST':
+			# For each field in the form check if there is a valid entry and update the database
+			if profile_form.name_profile.data != "":
+				user.name = profile_form.name_profile.data
+			if profile_form.surname_profile.data != "":
+				user.surname = profile_form.surname_profile.data
+			if profile_form.birth_profile.data != "":
+				user.birth = profile_form.birth_profile.data
+			if profile_form.country_profile.data != "":
+				user.country = profile_form.country_profile.data
+
+			# Commit the changes
+			db.session.commit()
+			
+			file = request.files['file']
+			print file.filename
+        	if file and allowed_file(file.filename):
+        		filename = secure_filename(file.filename)
+            	file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
 
 		# Return the profile page
-		return render_template('profile.html', user = user, profile = profile_form)
+		return render_template('profile.html', user = user, profile = profile_form,
+			avatar_filename = "images/profile_pictures/" + user.username + ".jpg")
 
 	# Otherwise redirect the user to the index
 	return redirect(url_for('index'))
 
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 @app.before_request
 def before_request():
