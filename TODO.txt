@@ -2,3 +2,7 @@ Check user existing
 Display errors
 
 Forms for country and Birth
+
+Allowed extensions
+
+Get rid of global g

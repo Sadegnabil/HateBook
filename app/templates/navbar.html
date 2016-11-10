@@ -1,5 +1,6 @@
 {% extends "header.html" %}
 {% block content %}
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -9,10 +10,14 @@
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 					</button>
+
+					<!-- LOGO -->
 					<a class="navbar-brand" href="#"><img id="logo" alt="Logo" src="{{ url_for('static', filename='images/website/logo.png') }}"></a>
 				</div>
 				
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+					<!-- SEARCH BAR -->
 					<form class="navbar-form navbar-left" role="search">
 						<div class="input-group">
 					      <input type="text" class="form-control" placeholder="Search for...">
@@ -22,12 +27,18 @@
 					    </div>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
+
+						<!-- NEWSFEED -->
 						<li>
 							<a href="/newsfeed">NewsFeed</a>
 						</li>
+
+						<!-- PROFILE -->
 						<li>
 							<a href="/profile"><img id="navbar_profile_picture" class="no-cache-image" alt="Profile Picture" src="{{ url_for('static', filename=avatar_filename) }}">   {{ user.username }}</a>
 						</li>
+
+						<!-- LOGOUT -->
 						<li>
 							<a id="logout_button" href="/dropsession">Log Out</a>
 						</li>						

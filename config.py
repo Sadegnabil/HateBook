@@ -8,5 +8,5 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
 WTF_CSRF_ENABLED = True
-SECRET_KEY = 'secret-key'
+SECRET_KEY = 'a-very-very-secret-key'
 

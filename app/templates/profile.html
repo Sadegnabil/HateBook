@@ -2,27 +2,33 @@
 {% block navbar %}
 <br>
 <div class="row">
+
+	<!-- GREETING -->
 	<div class="col-xs-8 col-sm-10 col-lg-10">
 		<h2>Welcome {{ user.username }}</h2>
-	
 	</div>
+
+	<!-- TOGGLE -->
 	<div class="col-xs-2 col-sm-2 col-lg-2">
-	<br>
+		<br>
 		<input type="checkbox" data-toggle="toggle" name="toogle" data-on="Modify" data-off="View" onchange="toogleView(this)">
 	</div>
 </div>
 	
 <br>
+
+<!-- PROFILE PICTURE -->
 <div class="col-md-12 text-center view">
 	<img id="large_profile_picture" src="{{ url_for('static', filename=avatar_filename) }}" alt="Profile Picture" class="img-responsive center-block no-cache-image">
 </div>
 
+<!-- MODIFY PROFILE PICTURE - hide by deault -->
 <div class="col-md-12 text-center">
 	<button id="change_profile_picture_btn" class="btn btn-new modify" style="display:none">
 		<div class="carousel slide" data-ride="carousel">
 	    	<div class="carousel-inner">
 	        	<div class="item active">
-	       			<img id="large_profile_picture" src="{{ url_for('static', filename=avatar_filename) }}" alt="Profile Picture" class="img-responsive center-block">
+	       			<img id="large_profile_picture" src="{{ url_for('static', filename=avatar_filename) }}" alt="Profile Picture" class="img-responsive center-block no-cache-image">
 		        	<div class="carousel-caption" id="change_profile_picture_text">
 	           			Click to Change
 	           		</div>
@@ -70,6 +76,8 @@
 
 <!-- MODIFY TABLE - hide by default -->
 <div class="col-xs-offset-0 col-md-offset-3 col-xs-12 col-md-6 col-lg-8 modify" style="display:none">
+
+	<!-- Modify form -->
 	<form method="POST">
 		<div class="table-responsive ">
   			<table class="table">
@@ -102,13 +110,20 @@
 	    		</tbody>
     		</table>
 		</div>
+
+		<!-- Submit form button -->
 		<input type="submit" class="btn btn-primary" value="Modify" name="Form">
 		<br>
 	</form>
 	<br>
+
+	<!-- DELETE ACCOUNT BUTTON -->
 	<button class="btn btn-danger pull-right" id="delete_account_btn">Delete account</button>
 </div>
 
+
+<!-- MODAL WINDOWS -->
+<!-- UPLOAD PICTURE WINDOW -->
 <div class="modal fade" id="upload_modal_form" role="dialog">
     <div class="modal-dialog">
     
@@ -121,8 +136,11 @@
 	        <form action="" method=post enctype=multipart/form-data>
 	        	<br>
 	        	<div class="text-center">
-      			<p><input type=file name=file class="form-control-file btn"></p>
-         		<input type=submit value=Upload class="btn btn-primary"></div>
+	        		<!-- Choose picture -->
+      				<p><input type=file name=file class="form-control-file btn"></p>
+      				<!-- Upload picture -->
+         			<input type=submit value=Upload class="btn btn-primary">
+         		</div>
          		<br>
 			</form>
       	</div>      
@@ -130,6 +148,7 @@
 </div>
 
 
+<!-- DELETE ACCOUNT WINDOW -->
 <div class="modal fade" id="delete_account_window" role="dialog">
 	<div class="modal-dialog">
 
@@ -141,7 +160,9 @@
 	        </div>
 	        <br>
 	        <div class="text-center">
+	        	<!-- KEEP -->
 		        <button class="btn btn-success" data-dismiss="modal">KEEP</button>
+		        <!-- DELETE -->
 		        <a href="/deleteaccount"><button class="btn btn-danger">DELETE</button></a>
 		    </div>
 	        <br>

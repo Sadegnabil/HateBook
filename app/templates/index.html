@@ -2,14 +2,25 @@
 {% block content %}
 
 <div class="container" id = "index">
-		<div class="col-md-offset-2 col-md-8 text-center"><img id="banner" alt="Banner" src="{{ url_for('static', filename='images/website/banner.png') }}"></div>
-        <div class="col-md-offset-4 col-md-4 text-center"><button type="button" class="btn btn-new btn-lg modal_buttons" id="login_modal_btn">Login</button></div>
-        <div class="col-md-offset-4 col-md-4 text-center"><button type="button" class="btn btn-new btn-lg modal_buttons" id="register_modal_btn">Register</button></div>
+	<!-- BANNER -->
+	<div class="col-md-offset-2 col-md-8 text-center">
+		<img id="banner" alt="Banner" src="{{ url_for('static', filename='images/website/banner.png') }}">
+	</div>
 
+	<!-- LOGIN BUTTON -->
+    <div class="col-md-offset-4 col-md-4 text-center">
+    	<button type="button" class="btn btn-new btn-lg modal_buttons" id="login_modal_btn">Login</button>
+    </div>
+
+    <!-- REGISTER BUTTON -->
+    <div class="col-md-offset-4 col-md-4 text-center">
+    	<button type="button" class="btn btn-new btn-lg modal_buttons" id="register_modal_btn">Register</button>
+    </div>
 </div>
 
 
-<!-- MODAL SECTION BEGIN -->
+
+<!-- MODAL WINDOWS -->
 <!-- Login -->
 <div class="modal fade" id="login_modal_form" role="dialog">
     <div class="modal-dialog">
@@ -20,6 +31,8 @@
           		<button type="button" class="close" data-dismiss="modal">&times;</button>
 		          <h4 class="modal-title">Log In</h4>
 	        </div>
+
+	        <!-- Login form -->
 	        <form method="POST">
 	        	<div class="modal-body">
           	
@@ -37,7 +50,6 @@
       	</div>      
    	</div>
 </div>
-<!-- END LOGIN -->
 
 <!-- Register -->
 <div class="modal fade" id="register_modal_form" role="dialog">
@@ -49,6 +61,8 @@
           		<button type="button" class="close" data-dismiss="modal">&times;</button>
 		          <h4 class="modal-title">Register</h4>
 	        </div>
+
+	        <!-- Register form -->
 	        <form method="POST">
 	        	<div class="modal-body">
           	
@@ -72,8 +86,6 @@
       	</div>      
    	</div>
 </div>
-<!-- END LOGIN -->
-<!-- MODAL SECTION END -->
 
 
 {% endblock %}

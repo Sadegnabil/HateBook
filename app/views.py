@@ -6,7 +6,7 @@ import os
 import hashlib 		# For the password
 from shutil import copyfile 	# To copy the default profile picture
 from werkzeug.utils import secure_filename	# To upload the images
-# from PIL import Image
+
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 # Create the route for the index
@@ -72,28 +72,7 @@ def index():
 
 
 
-# @app.route('/getsession')
-# def getsession():
-# 	if 'user' in session:
-# 		return session['user']
-# 	return 'Nope'
-
-
-
-@app.route('/dropsession')
-def dropsession():
-	session.pop('user', None)
-	return redirect(url_for('index'))
-
-@app.route('/deleteaccount')
-def deleteaccount():
-	user = db.session.query(models.Users).filter_by(username = g.user).first()
-	db.session.delete(user)
-	db.session.commit()
-	return redirect(url_for('dropsession'))
-
-
-
+# Create a rout for the profile page
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
 
@@ -142,12 +121,36 @@ def profile():
 	return redirect(url_for('index'))
 
 
+
+
+# Create a route for the newsfeed page
 @app.route('/newsfeed', methods=['GET', 'POST'])
 def newsfeed():
 	# Query the user from the database
 	user = db.session.query(models.Users).filter_by(username = g.user).first()
 	return render_template('newsfeed.html', user = user, avatar_filename = "images/profile_pictures/" + user.username + ".jpg", 
 		timeNow = str(datetime.datetime.utcnow()))
+
+
+
+# Route used to drop the session (disconnect the user)
+@app.route('/dropsession')
+def dropsession():
+	session.pop('user', None)
+	return redirect(url_for('index'))
+
+
+
+
+# Route used to delete an account
+@app.route('/deleteaccount')
+def deleteaccount():
+	# Delete the user
+	user = db.session.query(models.Users).filter_by(username = g.user).first()
+	db.session.delete(user)
+	db.session.commit()
+	# Drop the session
+	return redirect(url_for('dropsession'))
 
 
 
