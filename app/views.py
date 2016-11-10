@@ -145,8 +145,11 @@ def dropsession():
 # Route used to delete an account
 @app.route('/deleteaccount')
 def deleteaccount():
-	# Delete the user
+	# Retrive the user
 	user = db.session.query(models.Users).filter_by(username = g.user).first()
+	# Delete the profile picture
+	os.remove("app/static/images/profile_pictures/" + user.username + ".jpg", dir_fd=None)
+	# Delete the user
 	db.session.delete(user)
 	db.session.commit()
 	# Drop the session
