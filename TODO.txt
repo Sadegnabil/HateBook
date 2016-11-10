@@ -1,3 +1,5 @@
 Picture alt text
-Switch to python 3
 SQLITEBROWSER
+Check user existing
+Display errors
+Delete account

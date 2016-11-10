@@ -3,8 +3,9 @@ from app import app, models, db
 from .forms import *
 import datetime
 import os
-import hashlib
-from werkzeug.utils import secure_filename
+import hashlib 		# For the password
+from shutil import copyfile 	# To copy the default profile picture
+from werkzeug.utils import secure_filename	# To upload the images
 # from PIL import Image
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
@@ -49,6 +50,9 @@ def index():
 		db.session.commit()
 		# Save the username
 		session['user'] = register_form.username_register.data
+		# Create the profile picture
+		destination = "app/static/images/profile_pictures/" + register_form.username_register.data + ".jpg"
+		copyfile('app/static/images/profile_pictures/default_profile_picture.jpg', destination)
 		# Redirect to the profile page
 		return redirect(url_for('profile'))
 
@@ -77,6 +81,10 @@ def index():
 @app.route('/dropsession')
 def dropsession():
 	session.pop('user', None)
+	return redirect(url_for('index'))
+
+@app.route('/deleteaccount')
+def deleteaccount():
 	return redirect(url_for('index'))
 
 
