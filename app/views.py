@@ -56,17 +56,19 @@ def index():
 		# Redirect to the profile page
 		return redirect(url_for('profile'))
 
-	# Reset the forms fields
-	login_form.username_login.data = ""
-	login_form.password_login.data = ""
-	register_form.username_register.data = ""
-	register_form.password_register.data = ""
-	register_form.name_register.data = ""
-	register_form.surname_register.data = ""
-	register_form.country_register.data = ""
+	else:
 
-	# Render the index
-	return render_template('index.html', login_form = login_form, register_form = register_form)
+		# Reset the forms fields
+		login_form.username_login.data = ""
+		login_form.password_login.data = ""
+		register_form.username_register.data = ""
+		register_form.password_register.data = ""
+		register_form.name_register.data = ""
+		register_form.surname_register.data = ""
+		register_form.country_register.data = ""
+
+		# Render the index
+		return render_template('index.html', login_form = login_form, register_form = register_form)
 
 
 
@@ -138,6 +140,15 @@ def profile():
 
 	# Otherwise redirect the user to the index
 	return redirect(url_for('index'))
+
+
+@app.route('/newsfeed', methods=['GET', 'POST'])
+def newsfeed():
+	# Query the user from the database
+	user = db.session.query(models.Users).filter_by(username = g.user).first()
+	return render_template('newsfeed.html', user = user, avatar_filename = "images/profile_pictures/" + user.username + ".jpg", 
+		timeNow = str(datetime.datetime.utcnow()))
+
 
 
 @app.before_request
