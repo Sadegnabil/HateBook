@@ -85,7 +85,10 @@ def dropsession():
 
 @app.route('/deleteaccount')
 def deleteaccount():
-	return redirect(url_for('index'))
+	user = db.session.query(models.Users).filter_by(username = g.user).first()
+	db.session.delete(user)
+	db.session.commit()
+	return redirect(url_for('dropsession'))
 
 
 

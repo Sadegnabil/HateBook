@@ -99,15 +99,14 @@
 	    				<th>Country</th>
 	    				<td>{{ profile.country_profile(placeholder = user.country, class="form-control inputlg") }}</td>
 	    			</tr>
-	    			<tr>
-	    				<td><button class="btn btn-danger" href="#">Delete account</button></td>
-	    			</tr>
 	    		</tbody>
     		</table>
 		</div>
 		<input type="submit" class="btn btn-primary" value="Modify" name="Form">
 		<br>
 	</form>
+	<br>
+	<button class="btn btn-danger pull-right" id="delete_account_btn">Delete account</button>
 </div>
 
 <div class="modal fade" id="upload_modal_form" role="dialog">
@@ -125,6 +124,22 @@
 			</form>
       	</div>      
    	</div>
+</div>
+
+
+<div class="modal fade" id="delete_account_window" role="dialog">
+	<div class="modal-dialog">
+	
+		<!-- Modal content-->
+      	<div class="modal-content">
+        	<div class="modal-header">
+          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Do you really want to delete your account ?</h4>
+	        </div>
+	        <button class="btn btn-success" data-dismiss="modal">KEEP</button>
+	        <a href="/deleteaccount"><button class="btn btn-danger">DELETE</button></a>
+      	</div>
+	</div>	
 </div>
 
 {% endblock %}
