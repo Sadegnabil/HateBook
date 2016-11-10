@@ -10,6 +10,12 @@ $(document).ready(function(){
     $("#change_profile_picture_btn").click(function(){
     	$("#upload_modal_form").modal();
     });
+
+
+    var d = new Date();
+    var src = $(".no-cache-image").attr('src') + "?" + d.getTime();
+    $(".no-cache-image").attr('src', src)
+    console.log(src);
 });
 
 function toogleView(toogle) {
@@ -22,4 +28,6 @@ function toogleView(toogle) {
 		$(".view").show();		
 	}
 }
+
+
 

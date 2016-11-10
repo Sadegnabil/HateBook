@@ -14,7 +14,7 @@
 	
 <br>
 <div class="col-md-12 text-center view">
-	<img id="large_profile_picture" src="{{ url_for('static', filename=avatar_filename) }}" alt="" class="img-responsive center-block">
+	<img id="large_profile_picture" src="{{ url_for('static', filename=avatar_filename) }}" alt="Profile Picture" class="img-responsive center-block no-cache-image">
 </div>
 
 <div class="col-md-12 text-center">
@@ -63,10 +63,6 @@
     				<th>Country</th>
     				<td>{{ user.country }}</td>
     			</tr>
-<!--     			<tr>
-    				<th>Profile Picture</th>
-    				<td><img id="small_profile_picture" src="{{ url_for('static', filename=avatar_filename) }}"></td>
-    			</tr> -->
     		</tbody>
   		</table>
 	</div>
@@ -103,16 +99,10 @@
 	    				<th>Country</th>
 	    				<td>{{ profile.country_profile(placeholder = user.country, class="form-control inputlg") }}</td>
 	    			</tr>
-<!-- 	    			<tr>
-	    				<th>Profile Picture</th>
-	    				<td>
-	    					
-						</td>
-	    			</tr> -->
 	    		</tbody>
     		</table>
 		</div>
-		<input type="submit" class="btn btn-primary" value="Modify">
+		<input type="submit" class="btn btn-primary" value="Modify" name="Form">
 		<br>
 	</form>
 </div>
