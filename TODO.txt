@@ -1,5 +1,2 @@
-Picture alt text
-SQLITEBROWSER
 Check user existing
 Display errors
-Delete account
