@@ -19,6 +19,10 @@ def index():
 
 	# Initialise the error list
 	errors = []
+
+	# Initialise the modal variable to 0
+	# modal = 0
+
 	if request.method == 'POST':
 		# If the login_form is validated
 		if login_form.validate_on_submit():
