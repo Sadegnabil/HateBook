@@ -1,5 +1,3 @@
-Auto modal
-
 Allowed extensions
 
 Forms for country and Birth

@@ -118,6 +118,17 @@ body {
 }
 
 
+/*NEWSFEED PAGE*/
+.test {
+	border-style: solid;
+}
+
+#post_profile_picture {
+	height: 40px;
+	width: 40px;
+	margin: 5px;
+}
+
 
 
 backup {

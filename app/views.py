@@ -139,10 +139,17 @@ def profile():
 # Create a route for the newsfeed page
 @app.route('/newsfeed', methods=['GET', 'POST'])
 def newsfeed():
-	# Query the user from the database
-	user = db.session.query(models.Users).filter_by(username = session['user']).first()
-	return render_template('newsfeed.html', user = user, avatar_filename = "images/profile_pictures/" + user.username + ".jpg", 
-		timeNow = str(datetime.datetime.utcnow()))
+
+	# If there is a user connected display the profile page
+	if 'user' in session:
+
+		# Query the user from the database
+		user = db.session.query(models.Users).filter_by(username = session['user']).first()
+		return render_template('newsfeed.html', user = user, avatar_filename = "images/profile_pictures/" + user.username + ".jpg", 
+			timeNow = str(datetime.datetime.utcnow()))
+		
+	# Otherwise redirect the user to the index
+	return redirect(url_for('index'))
 
 
 

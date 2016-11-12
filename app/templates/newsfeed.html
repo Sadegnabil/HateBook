@@ -1,7 +1,28 @@
 {% extends "navbar.html" %}
 {% block navbar %}
 
-<h1>NEWSFEED</h1>
+<br>
+<div class="row">
+
+	<!-- GREETING -->
+	<div class="col-xs-8 col-sm-10 col-lg-10">
+		<h2>NEWS FEED</h2>
+	</div>
+
+	<div class="test col-xs-offset-2 col-md-offset-2 col-xs-8 col-md-8">
+      <div class="row">
+      	<img id="post_profile_picture" class="no-cache-image" alt="Profile Picture" src="{{ url_for('static', filename=avatar_filename) }}">
+      	<a href="/profilepage/{{user.username}}">
+      		{{user.username}} {{user.surname}}
+  		</a>
+      </div>
+      <div class="row">
+      	Time
+      </div>
+    </div>
+
+
+</div>
 
 
 
