@@ -22,7 +22,7 @@ $(document).ready(function(){
     // Append the datetime string to the images path to prevent cache
     var d = new Date();
     var src = $(".no-cache-image").attr('src') + "?" + d.getTime();
-    $(".no-cache-image").attr('src', src)
+    $(".no-cache-image").attr('src', src);
 });
 
 

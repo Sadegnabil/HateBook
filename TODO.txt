@@ -1,8 +1,5 @@
-Check user existing
-Display errors
+Auto modal
 
 Forms for country and Birth
 
 Allowed extensions
-
-Get rid of global g

@@ -38,8 +38,25 @@
           	
 		          	{{ login_form.hidden_tag() }}
 		          	{{ login_form.username_login(placeholder="Username", class="form-control inputlg") }}
+		          	<!-- Shows the errors in red -->
+					{% for error in login_form.username_login.errors %}
+						<span class="errors">{{ error }}</span>
+					{% endfor %}
+
 		          	<br>
+
 		          	{{ login_form.password_login(placeholder="Password", class="form-control inputlg", type="password") }}
+		          	<!-- Shows the errors in red -->
+		          	{% for error in login_form.password_login.errors %}
+						<span class="errors">{{ error }}</span>
+					{% endfor %}
+
+					<!-- Show if the password or username are flase -->
+					{% for error in errors %}
+						<span class="errors">{{ error }}</span>
+					{% endfor %}
+
+		          	
 			
 		        </div>
         		<div class="modal-footer">
@@ -59,7 +76,7 @@
       	<div class="modal-content">
         	<div class="modal-header">
           		<button type="button" class="close" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title">Register</h4>
+		          <h4 class="modal-title">Create an account</h4>
 	        </div>
 
 	        <!-- Register form -->
@@ -67,15 +84,44 @@
 	        	<div class="modal-body">
           	
 		          	{{ register_form.hidden_tag() }}
+
 		          	{{ register_form.name_register(placeholder="Name", class="form-control inputlg") }}
+		          	<!-- Shows the errors in red -->
+		          	{% for error in register_form.name_register.errors %}
+						<span class="errors">{{ error }}</span>
+					{% endfor %}
+
 		          	<br>
+
 		          	{{ register_form.surname_register(placeholder="Surname", class="form-control inputlg") }}
+		          	<!-- Shows the errors in red -->
+		          	{% for error in register_form.surname_register.errors %}
+						<span class="errors">{{ error }}</span>
+					{% endfor %}
+
 		          	<br>
+
 		          	{{ register_form.username_register(placeholder="Username", class="form-control inputlg") }}
+		          	<!-- Shows the errors in red -->
+		          	{% for error in register_form.username_register.errors %}
+						<span class="errors">{{ error }}</span>
+					{% endfor %}
+
 		          	<br>
+
 		          	{{ register_form.password_register(placeholder="Password", class="form-control inputlg", type="password") }}
+		          	<!-- Shows the errors in red -->
+		          	{% for error in register_form.password_register.errors %}
+						<span class="errors">{{ error }}</span>
+					{% endfor %}
+
 		          	<br>
+
 		          	{{ register_form.country_register(placeholder="Country", class="form-control inputlg") }}
+		          	<!-- Shows the errors in red -->
+		          	{% for error in register_form.country_register.errors %}
+						<span class="errors">{{ error }}</span>
+					{% endfor %}
 			
 		        </div>
         		<div class="modal-footer">

@@ -40,6 +40,10 @@ body {
 	margin-top: 120px;
 }
 
+.errors {
+	color: red;
+}
+
 
 
 /* LOGIN SCREEN BUTTONS */
