@@ -38,3 +38,9 @@ class Profile(FlaskForm):
 	birth_profile = TextField('birth', validators = [DataRequired()])
 	# Country field
 	country_profile = TextField('country', validators = [DataRequired()])
+
+
+# Create the form class used to store a post
+class Post(FlaskForm):
+	# Text field
+	text = TextAreaField('text', validators = [DataRequired()])

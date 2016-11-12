@@ -17,8 +17,9 @@ def index():
 	login_form = Login()
 	register_form = Register()
 
-	# Initialise the error list
-	errors = []
+	# Initialise the error lists
+	errorLogin = []
+	errorRegister = []
 
 	# Initialise the modal variable to 0
 	# modal = 0
@@ -42,32 +43,39 @@ def index():
 					return redirect(url_for('profile'))
 			
 			# Append the error
-			errors.append("Wrong password or username")
+			errorLogin.append("Wrong password or username")
 			# Delete the password
 			login_form.password_login.data = ""
 
 
 		# If the register_form is validated
 		elif register_form.validate_on_submit():
-			
-			# Encrypt the password
-			tmpPassword = hashlib.sha1()
-			tmpPassword.update(register_form.password_register.data.encode('utf-8'))
 
-			# Create the user
-			db.session.add(models.Users(username = register_form.username_register.data,
-				password = tmpPassword.hexdigest(), 
-				registration_date = datetime.datetime.utcnow().strftime("%B %d, %Y"),
-				name = register_form.name_register.data, surname = register_form.surname_register.data,
-				country = register_form.country_register.data))
-			db.session.commit()
-			# Save the username
-			session['user'] = register_form.username_register.data
-			# Create the profile picture
-			destination = "app/static/images/profile_pictures/" + register_form.username_register.data + ".jpg"
-			copyfile('app/static/images/profile_pictures/default_profile_picture.jpg', destination)
-			# Redirect to the profile page
-			return redirect(url_for('profile'))
+			# Check if the username is already taken
+			if models.Users.query.filter_by(username = register_form.username_register.data).first() != None:
+				# Append the error and reset the password field
+				errorRegister.append("Username already taken")
+				register_form.password_register.data = ""
+
+			else:
+				# Encrypt the password
+				tmpPassword = hashlib.sha1()
+				tmpPassword.update(register_form.password_register.data.encode('utf-8'))
+
+				# Create the user
+				db.session.add(models.Users(username = register_form.username_register.data,
+					password = tmpPassword.hexdigest(), 
+					registration_date = datetime.datetime.utcnow().strftime("%B %d, %Y"),
+					name = register_form.name_register.data, surname = register_form.surname_register.data,
+					country = register_form.country_register.data))
+				db.session.commit()
+				# Save the username
+				session['user'] = register_form.username_register.data
+				# Create the profile picture
+				destination = "app/static/images/profile_pictures/" + register_form.username_register.data + ".jpg"
+				copyfile('app/static/images/profile_pictures/default_profile_picture.jpg', destination)
+				# Redirect to the profile page
+				return redirect(url_for('profile'))
 
 	else:
 
@@ -81,7 +89,7 @@ def index():
 		register_form.country_register.data = ""
 
 	# Render the index
-	return render_template('index.html', login_form = login_form, register_form = register_form, errors=errors)
+	return render_template('index.html', login_form = login_form, register_form = register_form, errorLogin=errorLogin, errorRegister = errorRegister)
 
 
 
@@ -143,11 +151,26 @@ def newsfeed():
 	# If there is a user connected display the profile page
 	if 'user' in session:
 
+		# Create the post form
+		postForm = Post()
+
 		# Query the user from the database
 		user = db.session.query(models.Users).filter_by(username = session['user']).first()
-		return render_template('newsfeed.html', user = user, avatar_filename = "images/profile_pictures/" + user.username + ".jpg", 
-			timeNow = str(datetime.datetime.utcnow()))
-		
+
+		if request.method == 'POST':
+			newPost = models.Posts(date = str(datetime.datetime.utcnow()), text = postForm.text.data, author = user)
+			db.session.add(newPost)
+			db.session.commit()
+			postForm.text.data = ""
+
+		# Query the different posts from the database
+		posts = models.Posts.query.all()
+
+
+		# Return the newsfeed page
+		return render_template('newsfeed.html', user = user, posts = posts, postForm = postForm,
+			avatar_filename = "images/profile_pictures/" + user.username + ".jpg", timeNow = str(datetime.datetime.utcnow()))
+
 	# Otherwise redirect the user to the index
 	return redirect(url_for('index'))
 
@@ -174,11 +197,3 @@ def deleteaccount():
 	db.session.commit()
 	# Drop the session
 	return redirect(url_for('dropsession'))
-
-
-
-# @app.before_request
-# def before_request():
-# 	# session['user']=None
-# 	if 'user' in session:
-# 		session['user'] = session['user']

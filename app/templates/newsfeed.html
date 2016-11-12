@@ -10,16 +10,29 @@
 	</div>
 
 	<div class="test col-xs-offset-2 col-md-offset-2 col-xs-8 col-md-8">
+		<form method="POST">
+			{{ postForm.hidden_tag() }}
+			{{ postForm.text(placeholder = "Post something...", class="form-control inputlg") }}
+			<br>
+			<div class="pull-right"><input type="submit" class="btn btn-primary" value="Post"></div>
+    	</form>
+    </div>
+
+	{% for i in range(posts|length-1, 0, -1) %}
+	{% set post = posts[i] %}
+	<div class="test col-xs-offset-2 col-md-offset-2 col-xs-8 col-md-8">
       <div class="row">
       	<img id="post_profile_picture" class="no-cache-image" alt="Profile Picture" src="{{ url_for('static', filename=avatar_filename) }}">
-      	<a href="/profilepage/{{user.username}}">
-      		{{user.username}} {{user.surname}}
+      	<a href="/profilepage/{{post.author.username}}">
+      		{{post.author.name}} {{post.author.surname}}
   		</a>
       </div>
       <div class="row">
-      	Time
+      	{{ post.date }}
       </div>
+      <p>{{ post.text }}</p>
     </div>
+    {% endfor %}
 
 
 </div>

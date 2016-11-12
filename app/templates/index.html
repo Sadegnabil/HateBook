@@ -50,7 +50,7 @@
 					{% endfor %}
 
 					<!-- Show if the password or username are flase -->
-					{% for error in errors %}
+					{% for error in errorLogin %}
 						<span class="errors">{{ error }}</span>
 					{% endfor %}
 
@@ -82,6 +82,11 @@
 	        	<div class="modal-body">
           	
 		          	{{ register_form.hidden_tag() }}
+
+		          	<!-- If the username is already taken -->
+		          	{% for error in errorRegister %}
+		          		<span class="errors">{{ error }}</span>
+		          	{% endfor %}
 
 		          	{{ register_form.name_register(placeholder="Name", class="form-control inputlg") }}
 		          	<!-- Shows the errors in red -->
