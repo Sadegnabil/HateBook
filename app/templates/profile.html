@@ -9,7 +9,7 @@
 
 	<!-- GREETING -->
 	<div class="col-xs-8 col-sm-10 col-lg-10">
-		<h2>Welcome {{ user.username }}</h2>
+		<h2>Welcome {{ user.name }}</h2>
 	</div>
 
 	<!-- TOGGLE -->
@@ -104,9 +104,9 @@
 	    				<td>{{ profile.birth_profile(placeholder = user.birth, class="form-control inputlg") }}</td>
 	    			</tr>
 	    			<tr>
-	    				<th>Member since</th>
-	    				<td>{{ user.registration_date }}</td>
-	    			</tr>
+    					<th>Member since</th>
+    					<td>{{ user.registration_date.strftime("%B %d, %Y") }}</td>
+    				</tr>
 	    			<tr>
 	    				<th>Country</th>
 	    				<td>{{ profile.country_profile(placeholder = user.country, class="form-control inputlg") }}</td>

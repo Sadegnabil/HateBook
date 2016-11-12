@@ -136,7 +136,7 @@ def profile():
 
 		# Return the profile page
 		return render_template('profile.html', user = user, profile = profile_form,
-			avatar_filename = "images/profile_pictures/" + user.username + ".jpg", timeNow = str(datetime.datetime.utcnow()))
+			avatar_filename = "images/profile_pictures/" + user.username + ".jpg", timeNow = datetime.datetime.utcnow())
 
 	# Otherwise redirect the user to the index
 	return redirect(url_for('index'))
@@ -169,7 +169,7 @@ def newsfeed():
 
 		# Return the newsfeed page
 		return render_template('newsfeed.html', user = user, posts = posts, postForm = postForm,
-			avatar_filename = "images/profile_pictures/" + user.username + ".jpg", timeNow = str(datetime.datetime.utcnow()))
+			avatar_filename = "images/profile_pictures/" + user.username + ".jpg", timeNow = datetime.datetime.utcnow())
 
 	# Otherwise redirect the user to the index
 	return redirect(url_for('index'))

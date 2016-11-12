@@ -37,7 +37,10 @@
   		</a>
       
       	<div class="datetime pull-right">
-      		{{ post.date.strftime("%B %d, %Y") }} at {{ post.date.strftime("%H:%M") }}
+      		<!-- Compute the time and format it in a nicer way -->
+      		{% set time = timeNow - post.date %}
+    		{% set time = time|string %}
+      		Posted {{time[0:-7]}} ago
       	</div>
       </div>
       <p>{{ post.text }}</p>
