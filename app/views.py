@@ -65,7 +65,7 @@ def index():
 				# Create the user
 				db.session.add(models.Users(username = register_form.username_register.data,
 					password = tmpPassword.hexdigest(), 
-					registration_date = datetime.datetime.utcnow().strftime("%B %d, %Y"),
+					registration_date = datetime.datetime.utcnow(),
 					name = register_form.name_register.data, surname = register_form.surname_register.data,
 					country = register_form.country_register.data))
 				db.session.commit()
@@ -158,7 +158,7 @@ def newsfeed():
 		user = db.session.query(models.Users).filter_by(username = session['user']).first()
 
 		if request.method == 'POST':
-			newPost = models.Posts(date = str(datetime.datetime.utcnow()), text = postForm.text.data, author = user)
+			newPost = models.Posts(date = datetime.datetime.utcnow(), text = postForm.text.data, author = user)
 			db.session.add(newPost)
 			db.session.commit()
 			postForm.text.data = ""

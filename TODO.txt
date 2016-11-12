@@ -1,3 +1,13 @@
 Allowed extensions
 
 Forms for country and Birth
+
+default hide
+
+image upload post
+
+Profile public
+
+Date of birth register form
+
+Member since/registration date

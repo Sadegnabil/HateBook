@@ -119,8 +119,13 @@ body {
 
 
 /*NEWSFEED PAGE*/
-.test {
+.post {
 	border-style: solid;
+	border-radius: 10px;
+	border-color: #4367a0;
+	border-width: 1px;
+	margin-bottom: 1px;
+	margin-top: 4px;
 }
 
 #post_profile_picture {
@@ -128,6 +133,16 @@ body {
 	width: 40px;
 	margin: 5px;
 }
+
+.datetime {
+	margin-right: 5px;
+	color: grey;
+	font-size: 12px;
+	font-style: italic;
+}
+
+
+
 
 
 
