@@ -40,7 +40,7 @@ def index():
 					# Save the username
 					session['user'] = user.username
 
-					return redirect(url_for('profile'))
+					return redirect('/profile/' + user.username)
 			
 			# Append the error
 			errorLogin.append("Wrong password or username")
@@ -75,7 +75,7 @@ def index():
 				destination = "app/static/images/profile_pictures/" + register_form.username_register.data + ".jpg"
 				copyfile('app/static/images/profile_pictures/default_profile_picture.jpg', destination)
 				# Redirect to the profile page
-				return redirect(url_for('profile'))
+				return redirect('/profile/' + session['user'])
 
 	else:
 
@@ -94,14 +94,14 @@ def index():
 
 
 # Create a rout for the profile page
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
+@app.route('/profile/<userPage>', methods=['GET', 'POST'])
+def profile(userPage):
 
 	# If there is a user connected display the profile page
 	if 'user' in session:
 
 		# Query the user from the database
-		user = db.session.query(models.Users).filter_by(username = session['user']).first()
+		currentUser = db.session.query(models.Users).filter_by(username = session['user']).first()
 
 		# Create the profile form
 		profile_form = Profile()
@@ -114,13 +114,13 @@ def profile():
 				
 				# For each field in the form check if there is a valid entry and update the database
 				if profile_form.name_profile.data != "":
-					user.name = profile_form.name_profile.data
+					currentUser.name = profile_form.name_profile.data
 				if profile_form.surname_profile.data != "":
-					user.surname = profile_form.surname_profile.data
+					currentUser.surname = profile_form.surname_profile.data
 				if profile_form.birth_profile.data != "":
-					user.birth = profile_form.birth_profile.data
+					currentUser.birth = profile_form.birth_profile.data
 				if profile_form.country_profile.data != "":
-					user.country = profile_form.country_profile.data
+					currentUser.country = profile_form.country_profile.data
 
 				# Commit the changes
 				db.session.commit()
@@ -132,11 +132,16 @@ def profile():
 				if file:
 					filename = secure_filename(file.filename)
 					extension = filename.rsplit('.', 1)[1]
-					file.save(os.path.join(app.config['UPLOAD_FOLDER'], user.username + ".jpg"))
+					file.save(os.path.join(app.config['UPLOAD_FOLDER'], currentUser.username + ".jpg"))
 
+		print("images/profile_pictures/" + userPage + ".jpg")
 		# Return the profile page
-		return render_template('profile.html', user = user, profile = profile_form,
-			avatar_filename = "images/profile_pictures/" + user.username + ".jpg", timeNow = datetime.datetime.utcnow())
+		return render_template('profile.html', profile = profile_form,
+			currentUser = currentUser, 
+			currentUser_avatar_filename = "images/profile_pictures/" + currentUser.username + ".jpg",
+			userPage = db.session.query(models.Users).filter_by(username = userPage).first(),
+			abc = "images/profile_pictures/" + userPage + ".jpg", 			
+			timeNow = datetime.datetime.utcnow())
 
 	# Otherwise redirect the user to the index
 	return redirect(url_for('index'))
