@@ -43,4 +43,10 @@ class Profile(FlaskForm):
 # Create the form class used to store a post
 class Post(FlaskForm):
 	# Text field
-	text = TextAreaField('text', validators = [DataRequired()])
+	text_post = TextAreaField('text', validators = [DataRequired()])
+
+
+# # Create the form class used to store a comment
+# class Comment(FlaskForm):
+# 	# Text field
+# 	text_comment = TextAreaField('text', validators = [DataRequired()])

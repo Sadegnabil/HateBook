@@ -133,6 +133,12 @@ body {
 	margin: 5px;
 }
 
+.comment_profile_picture {
+	height: 30px;
+	width: 30px;
+	margin: 5px;
+}
+
 .datetime {
 	margin-right: 5px;
 	color: grey;

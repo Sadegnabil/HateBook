@@ -21,10 +21,10 @@
       <br>
       <form method="POST">
 			  {{ postForm.hidden_tag() }}
-			  {{ postForm.text(placeholder = "Post something...", class="form-control inputlg") }}
+			  {{ postForm.text_post(placeholder = "Post something...", class="form-control inputlg") }}
 			  <br>
         <!-- Shows the errors in red -->
-        {% for error in postForm.text.errors %}
+        {% for error in postForm.text_post.errors %}
           <span class="errors">{{ error }}</span>
         {% endfor %}
 			  <div class="pull-right">
@@ -65,7 +65,7 @@
     <p>{{ post.text }}</p>
 
     <!-- Footer  -->
-    <div class="footer-post row">
+    <div class="footer-post">
 
       <!-- Hate button -->
       <p class="pull-left">
@@ -74,27 +74,23 @@
       </p>
 
       <!-- Comment button -->
-      <button class="pull-right btn btn-new transparent_btn" data-toggle="collapse" data-target="#collapseComment">
+      <button class="pull-right btn btn-new transparent_btn" data-toggle="collapse" data-target="#collapseComment{{i}}">
           10
         <img class="comment-button" alt="Comment button" src="{{ url_for('static', filename='images/website/comment.png') }}">
       </button>
 
 
       <!-- COMMENT SECTION -->
-      <div class="default-hide" id="collapseComment">
-        <!-- Comment form -->
-        <form method="POST">
-          {{ postForm.hidden_tag() }}
-          {{ postForm.text(placeholder = "New comment...", class="form-control inputlg") }}
+      <div class="default-hide" id="collapseComment{{i}}">
+        <!-- Comment input -->
+        <textarea id="text_{{i}}" class="form-control inputlg", placeholder="New comment..."></textarea>
 
-          <!-- Shows the errors in red -->
-          {% for error in postForm.text.errors %}
-            <span class="errors">{{ error }}</span>
-          {% endfor %}
-          <div class="pull-right">
-           <input type="submit" class="btn btn-success" value="Comment">
-          </div>
-        </form>
+        <div class="pull-right">
+         <button class="btn btn-success" onclick="window.location = '/addComment/' + {{ i }} + '/' + $('#text_' +{{i}}).val()">
+          Comment</button>
+        </div>
+        <br><br>
+
 
         <!-- Display comments -->
         {% for comment in post.comments %}
@@ -119,6 +115,8 @@
             Posted {{time[0:-7]}} ago
           </div>
         </div>
+
+        <p>{{ comment.text }}</p>
         {% endfor %}
       </div>
 

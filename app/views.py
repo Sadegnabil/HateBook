@@ -159,17 +159,20 @@ def newsfeed():
 	# If there is a user connected display the profile page
 	if 'user' in session:
 
-		# Create the post form
+		# Create the forms
 		postForm = Post()
+		# commentForm = Comment()
 
 		# Query the user from the database
 		user = db.session.query(models.Users).filter_by(username = session['user']).first()
 
-		if request.method == 'POST' and postForm.validate_on_submit():
-			newPost = models.Posts(date = datetime.datetime.utcnow(), text = postForm.text.data, author = user)
-			db.session.add(newPost)
-			db.session.commit()
-			postForm.text.data = ""
+		if request.method == 'POST':
+			if postForm.validate_on_submit():
+				newPost = models.Posts(date = datetime.datetime.utcnow(), text = postForm.text_post.data, author = user)
+				db.session.add(newPost)
+				db.session.commit()
+				postForm.text_post.data = ""
+
 
 		# Query the different posts from the database
 		posts = models.Posts.query.all()
@@ -205,3 +208,18 @@ def deleteaccount():
 	db.session.commit()
 	# Drop the session
 	return redirect(url_for('dropsession'))
+
+@app.route('/addComment/<i>/<text>')
+def addComment(i, text):
+	print (int(i)+1, text)
+	newComment = models.Comments(date = datetime.datetime.utcnow(), text = text, 
+		author = db.session.query(models.Users).filter_by(username = session['user']).first(), 
+		post = db.session.query(models.Posts).get(int(i)+1))
+	db.session.add(newComment)
+	db.session.commit()
+
+	return redirect(url_for('newsfeed'))
+
+@app.route('/addComment/<i>/')
+def emptyComment(i):
+	return redirect(url_for('newsfeed'))
