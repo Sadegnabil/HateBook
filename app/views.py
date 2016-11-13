@@ -40,7 +40,8 @@ def index():
 					# Save the username
 					session['user'] = user.username
 
-					return redirect('/profile/' + user.username)
+					# Directly redirect on newsfeed
+					return redirect(url_for('newsfeed'))
 			
 			# Append the error
 			errorLogin.append("Wrong password or username")
@@ -166,7 +167,7 @@ def newsfeed():
 		# Query the user from the database
 		user = db.session.query(models.Users).filter_by(username = session['user']).first()
 
-		if request.method == 'POST':
+		if request.method == 'POST' and postForm.validate_on_submit():
 			newPost = models.Posts(date = datetime.datetime.utcnow(), text = postForm.text.data, author = user)
 			db.session.add(newPost)
 			db.session.commit()
