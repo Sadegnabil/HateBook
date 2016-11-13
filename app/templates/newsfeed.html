@@ -55,8 +55,14 @@
     <p>{{ post.text }}</p>
 
     <div class="footer-post row">
-      <p class="pull-left">Hates</p>
-      <p class="pull-right">Comments</p>
+      <p class="pull-left">
+        <img class="hate-button" alt="Hate button" src="{{ url_for('static', filename='images/website/hate.png') }}">
+          10
+      </p>
+      <p class="pull-right">
+          10
+        <img class="comment-button" alt="Comment button" src="{{ url_for('static', filename='images/website/comment.png') }}">
+      </p>
     </div>
   </div>
   {% endfor %}
