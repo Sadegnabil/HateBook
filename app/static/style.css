@@ -4,7 +4,7 @@
 }
 
 body {
-	/*background-color: #3b4a78;*/
+	background-color: #f4f6f9;
 	/*background-color: rgba(59, 89, 120, 1);*/
 	color: black;
 	font-family: 'Montserrat', serif;
@@ -125,6 +125,7 @@ body {
 	border-width: 1px;
 	margin-bottom: 1px;
 	margin-top: 4px;
+	background-color: white;
 }
 
 .post_profile_picture {
@@ -169,7 +170,17 @@ body {
 .transparent_btn:focus,
 .transparent_btn:active {
 	background-color: rgba(0, 0, 0, 0);;
-	border-color: rgba(0, 0, 0, 0);;
+	border-color: rgba(0, 0, 0, 0);
+}
+
+.comment-section {
+	font-size: 13px;
+}
+
+.comment {
+	border-top-style: solid;
+	border-width: 1px;
+	border-color: grey;
 }
 
 

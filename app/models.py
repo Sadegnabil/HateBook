@@ -44,6 +44,7 @@ class Posts(db.Model):
 	text = db.Column(db.String(500))
 	hates = db.Column(db.Integer)
 	comments = db.relationship('Comments', backref='post', lazy='dynamic')
+	comment_number = db.Column(db.Integer)
 	flags = db.Column(db.Integer)
 
 

@@ -75,13 +75,13 @@
 
       <!-- Comment button -->
       <button class="pull-right btn btn-new transparent_btn" data-toggle="collapse" data-target="#collapseComment{{i}}">
-          10
+          {{ post.comment_number }}
         <img class="comment-button" alt="Comment button" src="{{ url_for('static', filename='images/website/comment.png') }}">
       </button>
 
 
       <!-- COMMENT SECTION -->
-      <div class="default-hide" id="collapseComment{{i}}">
+      <div class="default-hide comment-section" id="collapseComment{{i}}">
         <!-- Comment input -->
         <textarea id="text_{{i}}" class="form-control inputlg", placeholder="New comment..."></textarea>
 
@@ -94,7 +94,7 @@
 
         <!-- Display comments -->
         {% for comment in post.comments %}
-        <div class="row">
+        <div class="row comment">
 
           <!-- Author image -->
           <img class="comment_profile_picture" alt="Profile Picture" id="image_{{ comment.id }}"

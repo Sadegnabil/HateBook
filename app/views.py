@@ -168,7 +168,7 @@ def newsfeed():
 
 		if request.method == 'POST':
 			if postForm.validate_on_submit():
-				newPost = models.Posts(date = datetime.datetime.utcnow(), text = postForm.text_post.data, author = user)
+				newPost = models.Posts(date = datetime.datetime.utcnow(), text = postForm.text_post.data, author = user, comment_number=0)
 				db.session.add(newPost)
 				db.session.commit()
 				postForm.text_post.data = ""
@@ -211,10 +211,13 @@ def deleteaccount():
 
 @app.route('/addComment/<i>/<text>')
 def addComment(i, text):
-	print (int(i)+1, text)
+	
+	post = db.session.query(models.Posts).get(int(i)+1)
+	post.comment_number += 1
+
 	newComment = models.Comments(date = datetime.datetime.utcnow(), text = text, 
 		author = db.session.query(models.Users).filter_by(username = session['user']).first(), 
-		post = db.session.query(models.Posts).get(int(i)+1))
+		post = post)
 	db.session.add(newComment)
 	db.session.commit()
 
