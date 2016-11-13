@@ -1,9 +1,11 @@
 Allowed extensions
 
-Forms for country and Birth
-
 image upload post
 
 Date of birth register form
 
 Indent consistency
+
+Forms for country and Birth
+
+Infinite scroll

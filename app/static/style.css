@@ -145,6 +145,12 @@ body {
 	font-style: italic;
 }
 
+.footer-post {
+	border-top-style: solid;
+	border-width: 1px;
+	border-color: grey;
+}
+
 
 
 
