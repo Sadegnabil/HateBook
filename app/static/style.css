@@ -128,7 +128,7 @@ body {
 	margin-top: 4px;
 }
 
-#post_profile_picture {
+.post_profile_picture {
 	height: 40px;
 	width: 40px;
 	margin: 5px;

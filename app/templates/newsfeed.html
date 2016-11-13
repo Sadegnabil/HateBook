@@ -6,7 +6,7 @@
 
 	<!-- GREETING -->
 	<div class="col-xs-8 col-sm-10 col-lg-10">
-		<h2>NewsFeed</h2>
+    <h2>NewsFeed</h2>
 	</div>
 	
 	<div class="col-xs-offset-1 col-md-offset-2 col-xs-10 col-md-8">
@@ -30,22 +30,26 @@
 	{% for i in range(posts|length-1, 0, -1) %}
 	{% set post = posts[i] %}
 	<div class="post col-xs-offset-1 col-md-offset-2 col-xs-10 col-md-8">
-      <div class="row">
-      	<img id="post_profile_picture" class="no-cache-image" alt="Profile Picture" src="{{ url_for('static', filename=avatar_filename) }}">
-      	<a href="/profilepage/{{post.author.username}}">
-      		{{post.author.name}} {{post.author.surname}}
-  		</a>
-      
-      	<div class="datetime pull-right">
-      		<!-- Compute the time and format it in a nicer way -->
-      		{% set time = timeNow - post.date %}
-    		{% set time = time|string %}
-      		Posted {{time[0:-7]}} ago
-      	</div>
-      </div>
-      <p>{{ post.text }}</p>
+    <div class="row">
+      <img class="post_profile_picture" alt="Profile Picture" id="image_{{ post.id }}"
+        src="{{ url_for('static', filename='images/profile_pictures/' + post.author.username + '.jpg') }}">
+      <!-- Prevent Caching -->
+      <script type="text/javascript">noCache("image_{{ post.id }}")</script>
+
+    	<a href="/profile/{{post.author.username}}">
+    		{{post.author.name}} {{post.author.surname}}
+		  </a>
+    
+    	<div class="datetime pull-right">
+    		<!-- Compute the time and format it in a nicer way -->
+    		{% set time = timeNow - post.date %}
+  		  {% set time = time|string %}
+    		Posted {{time[0:-7]}} ago
+    	</div>
     </div>
-    {% endfor %}
+    <p>{{ post.text }}</p>
+  </div>
+  {% endfor %}
 
 
 </div>

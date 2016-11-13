@@ -35,7 +35,12 @@
 
 						<!-- PROFILE -->
 						<li>
-							<a href="/profile/{{ currentUser.username }}"><img id="navbar_profile_picture" class="no-cache-image" alt="Profile Picture" src="{{ url_for('static', filename=currentUser_avatar_filename) }}">   {{ currentUser.name }} {{ currentUser.surname }}</a>
+							<a href="/profile/{{ currentUser.username }}"><img id="navbar_profile_picture" alt="Profile Picture" 
+								src="{{ url_for('static', filename='images/profile_pictures/' + currentUser.username + '.jpg') }}">
+								   {{ currentUser.name }} {{ currentUser.surname }}
+							</a>
+							<!-- Prevent caching -->
+							<script type="text/javascript">noCache('navbar_profile_picture');</script>
 						</li>
 
 						<!-- LOGOUT -->

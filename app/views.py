@@ -94,8 +94,8 @@ def index():
 
 
 # Create a rout for the profile page
-@app.route('/profile/<userPage>', methods=['GET', 'POST'])
-def profile(userPage):
+@app.route('/profile/<usernamePage>', methods=['GET', 'POST'])
+def profile(usernamePage):
 
 	# If there is a user connected display the profile page
 	if 'user' in session:
@@ -134,13 +134,17 @@ def profile(userPage):
 					extension = filename.rsplit('.', 1)[1]
 					file.save(os.path.join(app.config['UPLOAD_FOLDER'], currentUser.username + ".jpg"))
 
-		print("images/profile_pictures/" + userPage + ".jpg")
+		# print("images/profile_pictures/" + userPage + ".jpg")
+		# Retrieve the userPage
+		userPage = db.session.query(models.Users).filter_by(username = usernamePage).first()
+		print(userPage.username)
+
 		# Return the profile page
 		return render_template('profile.html', profile = profile_form,
 			currentUser = currentUser, 
 			currentUser_avatar_filename = "images/profile_pictures/" + currentUser.username + ".jpg",
-			userPage = db.session.query(models.Users).filter_by(username = userPage).first(),
-			abc = "images/profile_pictures/" + userPage + ".jpg", 			
+			userPage = userPage,
+			userPage_avatar_filename = "images/profile_pictures/" + userPage.username + ".jpg", 			
 			timeNow = datetime.datetime.utcnow())
 
 	# Otherwise redirect the user to the index
@@ -173,8 +177,8 @@ def newsfeed():
 
 
 		# Return the newsfeed page
-		return render_template('newsfeed.html', user = user, posts = posts, postForm = postForm,
-			avatar_filename = "images/profile_pictures/" + user.username + ".jpg", timeNow = datetime.datetime.utcnow())
+		return render_template('newsfeed.html', currentUser = user, posts = posts, postForm = postForm,
+			currentUser_avatar_filename = "images/profile_pictures/" + user.username + ".jpg", timeNow = datetime.datetime.utcnow())
 
 	# Otherwise redirect the user to the index
 	return redirect(url_for('index'))

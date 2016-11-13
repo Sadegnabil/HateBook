@@ -20,14 +20,15 @@ $(document).ready(function(){
         $("#delete_account_window").modal();
     });
 
-
-    // Append the datetime string to the images path to prevent cache
-    var d = new Date();
-    var src = $(".no-cache-image").attr('src') + "?" + d.getTime();
-    $(".no-cache-image").attr('src', src);
     autoModal(sessionStorage.getItem('modal'));
 });
 
+function noCache(id) {
+    // Append the datetime string to the images path to prevent cache
+    var d = new Date();
+    var src = $("#" + id).attr('src') + "?" + d.getTime();
+    $("#" + id).attr('src', src);
+}
 
 function autoModal(modal) {
     if (modal == 1) {
