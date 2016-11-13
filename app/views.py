@@ -135,10 +135,8 @@ def profile(usernamePage):
 					extension = filename.rsplit('.', 1)[1]
 					file.save(os.path.join(app.config['UPLOAD_FOLDER'], currentUser.username + ".jpg"))
 
-		# print("images/profile_pictures/" + userPage + ".jpg")
 		# Retrieve the userPage
 		userPage = db.session.query(models.Users).filter_by(username = usernamePage).first()
-		print(userPage.username)
 
 		# Return the profile page
 		return render_template('profile.html', profile = profile_form,

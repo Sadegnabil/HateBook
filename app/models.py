@@ -21,6 +21,7 @@ class Users(db.Model):
 	registration_date = db.Column(db.DateTime)
 	country = db.Column(db.String(50))
 	posts = db.relationship('Posts', backref='author', lazy='dynamic')
+	comments = db.relationship('Comments', backref='author', lazy='dynamic')
 
 
 
@@ -42,7 +43,7 @@ class Posts(db.Model):
 	image_link = db.Column(db.String(100))
 	text = db.Column(db.String(500))
 	hates = db.Column(db.Integer)
-	comments = db.Column(db.Integer)
+	comments = db.relationship('Comments', backref='post', lazy='dynamic')
 	flags = db.Column(db.Integer)
 
 
@@ -58,8 +59,8 @@ Model representing a comment with:
 """
 class Comments(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	author = db.Column(db.String(20))
 	date = db.Column(db.DateTime)
 	text = db.Column(db.String(500))
-	postID = db.Column(db.Integer)
+	post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+	author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 	flags = db.Column(db.Integer)

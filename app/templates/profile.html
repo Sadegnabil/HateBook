@@ -31,9 +31,9 @@
 
 <!-- PROFILE PICTURE -->
 <div class="col-md-12 text-center view">
-	<img id="large_profile_picture" 
+	<img id="main_picture"
 		src="{{ url_for('static', filename='images/profile_pictures/' + userPage.username + '.jpg') }}" 
-		alt="Profile Picture" class="img-responsive center-block" id="main_picture">
+		alt="Profile Picture" class="img-responsive center-block large_profile_picture" >
 	<script type="text/javascript">noCache('main_picture')</script>
 </div>
 
@@ -43,9 +43,9 @@
 		<div class="carousel slide" data-ride="carousel">
 	    	<div class="carousel-inner">
 	        	<div class="item active">
-	       			<img id="large_profile_picture" 
+	       			<img id="modify_picture"
 	       				src="{{ url_for('static', filename='images/profile_pictures/' + currentUser.username + '.jpg') }}" 
-	       				alt="Profile Picture" class="img-responsive center-block" id="modify_picture">
+	       				alt="Profile Picture" class="img-responsive center-block large_profile_picture">
        				<script type="text/javascript">noCache('modify_picture')</script>
 		        	<div class="carousel-caption" id="change_profile_picture_text">
 	           			Click to Change

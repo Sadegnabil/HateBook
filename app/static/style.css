@@ -76,12 +76,7 @@ body {
 
 
 /* PROFILE PAGE */
-#small_profile_picture {
-	height: 70px;
-	width: 70px;
-}
-
-#large_profile_picture {
+.large_profile_picture {
 	height: 170px;
 	width: 170px;
 }
