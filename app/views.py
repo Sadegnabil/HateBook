@@ -8,6 +8,7 @@ from shutil import copyfile 	# To copy the default profile picture
 from werkzeug.utils import secure_filename	# To upload the images
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+MAX_REPORTS = 1
 
 # Create the route for the index
 @app.route('/', methods=['GET', 'POST'])
@@ -20,9 +21,6 @@ def index():
 	# Initialise the error lists
 	errorLogin = []
 	errorRegister = []
-
-	# Initialise the modal variable to 0
-	# modal = 0
 
 	if request.method == 'POST':
 		# If the login_form is validated
@@ -168,7 +166,7 @@ def newsfeed():
 
 		if request.method == 'POST':
 			if postForm.validate_on_submit():
-				newPost = models.Posts(date = datetime.datetime.utcnow(), text = postForm.text_post.data, author = user, comment_number=0)
+				newPost = models.Posts(date = datetime.datetime.utcnow(), text = postForm.text_post.data, author = user)
 				db.session.add(newPost)
 				db.session.commit()
 				postForm.text_post.data = ""
@@ -209,11 +207,11 @@ def deleteaccount():
 	# Drop the session
 	return redirect(url_for('dropsession'))
 
-@app.route('/addComment/<i>/<text>')
-def addComment(i, text):
+@app.route('/addComment/<id>/<text>')
+def addComment(id, text):
 	
-	post = db.session.query(models.Posts).get(int(i)+1)
-	post.comment_number += 1
+	post = db.session.query(models.Posts).get(int(id))
+	post.comments_number += 1
 
 	newComment = models.Comments(date = datetime.datetime.utcnow(), text = text, 
 		author = db.session.query(models.Users).filter_by(username = session['user']).first(), 
@@ -223,6 +221,79 @@ def addComment(i, text):
 
 	return redirect(url_for('newsfeed'))
 
-@app.route('/addComment/<i>/')
-def emptyComment(i):
+@app.route('/addComment/<id>/')
+def emptyComment(id):
+	return redirect(url_for('newsfeed'))
+
+@app.route('/report/<type>/<id>')
+def report(type, id):
+
+	# Retrive the user
+	user = db.session.query(models.Users).filter_by(username = session['user']).first()
+
+	# If it's a post
+	if type == 'post':
+		post = db.session.query(models.Posts).get(int(id))
+		for report in post.reports:
+			if report.author.username == session['user']:
+				return redirect(url_for('newsfeed'))
+
+		newReport = models.Reports(author=user, post=post)
+		db.session.add(newReport)
+		post.reports_number += 1
+		db.session.commit()
+		if post.reports_number == MAX_REPORTS:
+			deleteElement(post)
+		return redirect(url_for('newsfeed'))
+
+	# If it's a comment
+	elif type == 'comment':
+		comment = db.session.query(models.Comments).get(int(id))
+		for report in comment.reports:
+			if report.author.username == session['user']:
+				return redirect(url_for('newsfeed'))
+
+		newReport = models.Reports(author=user, comment=comment)
+		db.session.add(newReport)
+		comment.reports_number += 1
+		db.session.commit()
+		if comment.reports_number == MAX_REPORTS:
+			deleteElement(comment)
+			post = db.session.query(models.Posts).get(int(comment.post_id))
+			post.comments_number -= 1
+			db.session.commit()
+		return redirect(url_for('newsfeed'))
+
+
+	return redirect(url_for('newsfeed'))
+
+
+def deleteElement(element):
+	for report in element.reports:
+		db.session.delete(report)
+	db.session.delete(element)
+	db.session.commit()
+	return redirect(url_for('newsfeed'))
+
+
+@app.route('/toogleHate/<id>')
+def toogleHate(id):
+
+	# Retrieve the post
+	post = db.session.query(models.Posts).get(int(id))
+	# Retrive the user
+	user = db.session.query(models.Users).filter_by(username = session['user']).first()
+
+	for hate in post.hates:
+		if hate.author.username == session['user']:
+			db.session.delete(hate)
+			post.hates_number -= 1
+			db.session.commit()
+			return redirect(url_for('newsfeed'))
+
+	# Create the new hate
+	newHate = models.Hates(author = user, post = post)
+	db.session.add(newHate)
+	post.hates_number += 1
+	db.session.commit()
 	return redirect(url_for('newsfeed'))

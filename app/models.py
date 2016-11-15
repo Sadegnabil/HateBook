@@ -22,6 +22,8 @@ class Users(db.Model):
 	country = db.Column(db.String(50))
 	posts = db.relationship('Posts', backref='author', lazy='dynamic')
 	comments = db.relationship('Comments', backref='author', lazy='dynamic')
+	reports = db.relationship('Reports', backref='author', lazy='dynamic')
+	hates = db.relationship('Hates', backref='author', lazy='dynamic')
 
 
 
@@ -34,7 +36,7 @@ Model representing a post with:
 	- Text
 	- Hates
 	- Comments
-	- Flags
+	- Reports
 """
 class Posts(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -44,8 +46,11 @@ class Posts(db.Model):
 	text = db.Column(db.String(500))
 	hates = db.Column(db.Integer)
 	comments = db.relationship('Comments', backref='post', lazy='dynamic')
-	comment_number = db.Column(db.Integer)
-	flags = db.Column(db.Integer)
+	comments_number = db.Column(db.Integer, default=0)
+	reports = db.relationship('Reports', backref='post', lazy='dynamic')
+	reports_number = db.Column(db.Integer, default=0)
+	hates_number = db.Column(db.Integer, default = 0)
+	hates = db.relationship('Hates', backref='post', lazy='dynamic')
 
 
 
@@ -56,7 +61,7 @@ Model representing a comment with:
 	- Date
 	- Text
 	- Post ID
-	- Flags
+	- Reports
 """
 class Comments(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -64,4 +69,18 @@ class Comments(db.Model):
 	text = db.Column(db.String(500))
 	post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 	author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-	flags = db.Column(db.Integer)
+	reports = db.relationship('Reports', backref='comment', lazy='dynamic')
+	reports_number = db.Column(db.Integer, default=0)
+
+
+class Reports(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+	post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+	comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
+
+
+class Hates(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+	post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))

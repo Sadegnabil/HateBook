@@ -21,6 +21,10 @@ $(document).ready(function(){
     });
 
     autoModal(sessionStorage.getItem('modal'));
+
+    $(".report").click(function(){
+        alert("Your report has been submitted !");
+    });
 });
 
 function noCache(id) {

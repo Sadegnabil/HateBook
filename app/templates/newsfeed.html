@@ -4,130 +4,130 @@
 <br>
 <div class="row">
 
-	 <!-- GREETING -->
-	<div class="col-xs-10 col-sm-10 col-lg-10">
-    <h2>Welcome {{ currentUser.name }}</h2>
-	</div>
-
-  <!-- CREATE POST BUTTON -->
-	<div class="col-xs-offset-1 col-md-offset-2 col-xs-10 col-md-8">
-		<button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapsePost">
-    		+ New Post
-  	</button>
-  	<br>
-
-    <!-- CREATE POST FORM - default collapsed -->
-  	<div class="collapse" id="collapsePost">
-      <br>
-      <form method="POST">
-			  {{ postForm.hidden_tag() }}
-			  {{ postForm.text_post(placeholder = "Post something...", class="form-control inputlg") }}
-			  <br>
-        <!-- Shows the errors in red -->
-        {% for error in postForm.text_post.errors %}
-          <span class="errors">{{ error }}</span>
-        {% endfor %}
-			  <div class="pull-right">
-				 <input type="submit" class="btn btn-success" value="Post">
-			  </div>
-  		</form>
-    </div>
-  </div>
-
-
-  <!-- DISPLAY ALL THE POSTS AVAILABLE -->
-	{% for i in range(posts|length-1, 0, -1) %}
-	{% set post = posts[i] %}
-	<div class="post col-xs-offset-1 col-md-offset-2 col-xs-10 col-md-8">
-    <div class="row">
-
-      <!-- Author image -->
-      <img class="post_profile_picture" alt="Profile Picture" id="image_{{ post.id }}"
-        src="{{ url_for('static', filename='images/profile_pictures/' + post.author.username + '.jpg') }}">
-      <!-- Prevent Caching -->
-      <script type="text/javascript">noCache("image_{{ post.id }}")</script>
-
-      <!-- Author name -->
-    	<a href="/profile/{{post.author.username}}">
-    		{{post.author.name}} {{post.author.surname}}
-		  </a>
-      
-      <!-- Time -->
-    	<div class="datetime pull-right">
-    		<!-- Compute the time and format it in a nicer way -->
-    		{% set time = timeNow - post.date %}
-  		  {% set time = time|string %}
-    		Posted {{time[0:-7]}} ago
-    	</div>
+    <!-- GREETING -->
+    <div class="col-xs-10 col-sm-10 col-lg-10">
+        <h2>Welcome {{ currentUser.name }}</h2>
     </div>
 
-    <!-- Text -->
-    <p>{{ post.text }}</p>
+    <!-- CREATE POST BUTTON -->
+    <div class="col-xs-offset-1 col-md-offset-2 col-xs-10 col-md-8">
+        <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapsePost">
+            + New Post
+        </button>
+        <br>
 
-    <!-- Footer  -->
-    <div class="footer-post">
-
-      <!-- Hate button -->
-      <p class="pull-left">
-        <img class="hate-button" alt="Hate button" src="{{ url_for('static', filename='images/website/hate.png') }}">
-          10
-      </p>
-
-      <!-- Comment button -->
-      <button class="pull-right btn btn-new transparent_btn" data-toggle="collapse" data-target="#collapseComment{{i}}">
-          {{ post.comment_number }}
-        <img class="comment-button" alt="Comment button" src="{{ url_for('static', filename='images/website/comment.png') }}">
-      </button>
-
-
-      <!-- COMMENT SECTION -->
-      <div class="default-hide comment-section" id="collapseComment{{i}}">
-        <!-- Comment input -->
-        <textarea id="text_{{i}}" class="form-control inputlg", placeholder="New comment..."></textarea>
-
-        <div class="pull-right">
-         <button class="btn btn-success" onclick="window.location = '/addComment/' + {{ i }} + '/' + $('#text_' +{{i}}).val()">
-          Comment</button>
+        <!-- CREATE POST FORM - default collapsed -->
+        <div class="collapse" id="collapsePost">
+            <br>
+            <form method="POST">
+                {{ postForm.hidden_tag() }}
+                {{ postForm.text_post(placeholder = "Post something...", class="form-control inputlg") }}
+                <br>
+                <!-- Shows the errors in red -->
+                {% for error in postForm.text_post.errors %}
+                <span class="errors">{{ error }}</span>
+                {% endfor %}
+                <div class="pull-right">
+                    <input type="submit" class="btn btn-success" value="Post">
+                </div>
+            </form>
         </div>
-        <br><br>
+    </div>
 
 
-        <!-- Display comments -->
-        {% for comment in post.comments %}
-        <div class="row comment">
+    <!-- DISPLAY ALL THE POSTS AVAILABLE -->
+    {% for i in range(posts|length-1, -1, -1) %}
+    {% set post = posts[i] %}
+    <div class="post col-xs-offset-1 col-md-offset-2 col-xs-10 col-md-8">
+        <div class="row">
 
-          <!-- Author image -->
-          <img class="comment_profile_picture" alt="Profile Picture" id="image_{{ comment.id }}"
-            src="{{ url_for('static', filename='images/profile_pictures/' + comment.author.username + '.jpg') }}">
-          <!-- Prevent Caching -->
-          <script type="text/javascript">noCache("image_{{ comment.id }}")</script>
+            <!-- Author image -->
+            <img class="post_profile_picture" alt="Profile Picture" id="image_{{ post.id }}"
+                 src="{{ url_for('static', filename='images/profile_pictures/' + post.author.username + '.jpg') }}">
+            <!-- Prevent Caching -->
+            <script type="text/javascript">noCache("image_{{ post.id }}")</script>
 
-          <!-- Author name -->
-          <a href="/profile/{{comment.author.username}}">
-            {{comment.author.name}} {{comment.author.surname}}
-          </a>
-          
-          <!-- Time -->
-          <div class="datetime pull-right">
-            <!-- Compute the time and format it in a nicer way -->
-            {% set time = timeNow - comment.date %}
-            {% set time = time|string %}
-            Posted {{time[0:-7]}} ago
-          </div>
+            <!-- Author name -->
+            <a href="/profile/{{post.author.username}}">
+                {{post.author.name}} {{post.author.surname}}
+            </a>
+
+            <!-- Time -->
+            <div class="datetime pull-right">
+                <!-- Compute the time and format it in a nicer way -->
+                {% set time = timeNow - post.date %}
+                {% set time = time|string %}
+                Posted {{time[0:-7]}} ago
+
+                <a class="report" href="/report/post/{{ post.id }}">|Report|</a>
+            </div>
         </div>
 
-        <p>{{ comment.text }}</p>
-        {% endfor %}
-      </div>
+        <!-- Text -->
+        <p>{{ post.text }}</p>
 
-      
+        <!-- Footer  -->
+        <div class="footer-post">
+
+            <!-- Hate button -->
+            <p class="pull-left">
+                <a href="/toogleHate/{{ post.id }}"><img class="hate-button" alt="Hate button" src="{{ url_for('static', filename='images/website/hate.png') }}"></a>
+                {{ post.hates_number }}
+            </p>
+
+            <!-- Comment button -->
+            <button class="pull-right btn btn-new transparent_btn" data-toggle="collapse" data-target="#collapseComment{{i}}">
+                {{ post.comments_number }}
+                <img class="comment-button" alt="Comment button" src="{{ url_for('static', filename='images/website/comment.png') }}">
+            </button>
 
 
+            <!-- COMMENT SECTION -->
+            <div class="default-hide comment-section" id="collapseComment{{i}}">
+                <!-- Comment input -->
+                <textarea id="text_{{i}}" class="form-control inputlg", placeholder="New comment..."></textarea>
+                <br>
+
+                <div class="pull-right">
+                    <button class="btn btn-primary" onclick="window.location = '/addComment/' + {{ post.id }} + '/' + $('#text_' +{{i}}).val()">
+                        Comment</button>
+                </div>
+                <br><br>
 
 
+                <!-- Display comments -->
+                {% for comment in post.comments %}
+                <div class="row comment">
+
+                    <!-- Author image -->
+                    <img class="comment_profile_picture" alt="Profile Picture" id="image_{{ comment.id }}"
+                         src="{{ url_for('static', filename='images/profile_pictures/' + comment.author.username + '.jpg') }}">
+                    <!-- Prevent Caching -->
+                    <script type="text/javascript">noCache("image_{{ comment.id }}")</script>
+
+                    <!-- Author name -->
+                    <a href="/profile/{{comment.author.username}}">
+                        {{comment.author.name}} {{comment.author.surname}}
+                    </a>
+
+                    <!-- Time -->
+                    <div class="datetime pull-right">
+                        <!-- Compute the time and format it in a nicer way -->
+                        {% set time = timeNow - comment.date %}
+                        {% set time = time|string %}
+                        Posted {{time[0:-7]}} ago
+
+                        <a class="report" href="/report/comment/{{ comment.id }}">|Report|</a>
+                    </div>
+                </div>
+
+                <p>{{ comment.text }}</p>
+                {% endfor %}
+            </div>
+
+        </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
 
 </div>
 
