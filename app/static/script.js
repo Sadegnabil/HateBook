@@ -26,10 +26,13 @@ $(document).ready(function(){
         alert("Your report has been submitted !");
     });
 
+});
+
+function geolocation() {
     $.get("http://ipinfo.io", function(response) {
         console.log(response.city, response.country);
     }, "jsonp");
-});
+}
 
 function noCache(id) {
     // Append the datetime string to the images path to prevent cache

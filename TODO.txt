@@ -1,11 +1,17 @@
 Password change
 
-Create a function for new comment
+Log for password fail
 
-Add geolocation
+Terms and conditions
+
+Add geolocation for posts
+
+flask_secure
+
+Check Introduction to web accessibility
 
 
 
-Forms for country and Birth
+Form for Birth
 
 Infinite scroll
