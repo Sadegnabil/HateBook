@@ -125,18 +125,19 @@
 		          	{% for error in register_form.birth_register.errors %}
 						<span class="errors">{{ error }}</span>
 					{% endfor %}
-
-		          	<br>
-
-		          	{{ register_form.country_register(placeholder="Country", class="form-control inputlg") }}
-		          	<!-- Shows the errors in red -->
-		          	{% for error in register_form.country_register.errors %}
-						<span class="errors">{{ error }}</span>
-					{% endfor %}
 			
 		        </div>
+
+		        <div id="conditions" class="text-center">
+		        	<h3>Rules</h3>
+		        	<p>
+			        	1) Don't enter yout real password <br>
+			        	2) Enjoy!
+		        	</p>
+		        </div>
+
         		<div class="modal-footer">
-	      			<input type="submit" class="btn btn-primary" value="Register">
+	      			<input type="submit" class="btn btn-primary" value="Accept and Register">
           			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	        	</div>
 	        </form>

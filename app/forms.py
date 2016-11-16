@@ -24,8 +24,6 @@ class Register(FlaskForm):
 	name_register = TextField('name', validators = [DataRequired()])
 	# Birth field
 	birth_register = TextField('name', validators = [DataRequired()])
-	# Country field
-	country_register = TextField('country', validators = [DataRequired()])
 
 
 # Create the form class used to store the changements to the profile
@@ -38,8 +36,6 @@ class Profile(FlaskForm):
 	username_profile = TextField('username', validators = [DataRequired()])
 	# Birth field
 	birth_profile = TextField('birth', validators = [DataRequired()])
-	# Country field
-	country_profile = TextField('country', validators = [DataRequired()])
 
 
 # Create the form class used to store a post

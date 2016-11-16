@@ -26,12 +26,16 @@ $(document).ready(function(){
         alert("Your report has been submitted !");
     });
 
+    // console.log(navigator.geolocation.getCurrentPosition(showPosition));
+
 });
 
 function geolocation() {
-    $.get("http://ipinfo.io", function(response) {
-        console.log(response.city, response.country);
-    }, "jsonp");
+    navigator.geolocation.getCurrentPosition(convertToAddress);
+}
+
+function convertToAddress(position) {
+    
 }
 
 function noCache(id) {

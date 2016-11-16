@@ -48,6 +48,12 @@ body {
 	color: red;
 }
 
+#conditions {
+	border-top: solid 1px grey;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
 
 
 /* LOGIN SCREEN BUTTONS */

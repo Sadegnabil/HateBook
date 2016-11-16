@@ -44,6 +44,15 @@ def index():
 
 					# Directly redirect on newsfeed
 					return redirect(url_for('newsfeed'))
+
+				# If the password is wrong
+				else:
+					# Open the log file and print the error
+					with open('app/static/logs.txt', 'w') as file:
+						timeLog = datetime.datetime.utcnow().strftime("%d/%m/%Y %H:%M:%S")
+						errorLog = "[" + timeLog + "] Login attempted fail: Wrong password. User: " + user.username
+						file.write(errorLog)
+
 			
 			# Append the error
 			errorLogin.append("Wrong password or username")
@@ -70,7 +79,6 @@ def index():
 					password = tmpPassword.hexdigest(), 
 					registration_date = datetime.datetime.utcnow(),
 					name = register_form.name_register.data, surname = register_form.surname_register.data,
-					country = register_form.country_register.data,
 					birth = register_form.birth_register.data))
 				db.session.commit()
 				# Save the username
@@ -90,7 +98,6 @@ def index():
 		register_form.password_register.data = ""
 		register_form.name_register.data = ""
 		register_form.surname_register.data = ""
-		register_form.country_register.data = ""
 		register_form.birth_register.data = ""
 
 	# Render the index
@@ -127,8 +134,6 @@ def profile(usernamePage):
 					currentUser.surname = profile_form.surname_profile.data
 				if profile_form.birth_profile.data != "":
 					currentUser.birth = profile_form.birth_profile.data
-				if profile_form.country_profile.data != "":
-					currentUser.country = profile_form.country_profile.data
 
 				# Commit the changes
 				db.session.commit()

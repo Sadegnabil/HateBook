@@ -10,7 +10,6 @@ Model representing a user with:
 	- Password
 	- Birth
 	- Registration date
-	- Country
 
 	From relationship:
 	- Posts
@@ -28,7 +27,6 @@ class Users(db.Model):
 	
 	birth = db.Column(db.String(20))
 	registration_date = db.Column(db.DateTime)
-	country = db.Column(db.String(50))
 
 	posts = db.relationship('Posts', backref='author', lazy='dynamic')
 	hates = db.relationship('Hates', backref='author', lazy='dynamic')

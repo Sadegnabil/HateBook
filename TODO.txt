@@ -1,7 +1,5 @@
 Password change
 
-Log for password fail
-
 Terms and conditions
 
 Add geolocation for posts
@@ -9,6 +7,8 @@ Add geolocation for posts
 flask_secure
 
 Check Introduction to web accessibility
+
+Delete Country and add Place post
 
 
 

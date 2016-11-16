@@ -84,11 +84,6 @@
     				<td>{{ userPage.registration_date.strftime("%B %d, %Y") }}</td>
     			</tr>
     			<tr>
-    				<th>Country</th>
-    				<td>{{ userPage.country }}</td>
-    			</tr>
-
-    			<tr>
     				<th>Current Location</th>
     				<td><script type="text/javascript">geolocation();</script></td>
     			</tr>
@@ -126,10 +121,6 @@
     					<th>Member since</th>
     					<td>{{ currentUser.registration_date.strftime("%B %d, %Y") }}</td>
     				</tr>
-	    			<tr>
-	    				<th>Country</th>
-	    				<td>{{ profile.country_profile(placeholder = currentUser.country, class="form-control inputlg") }}</td>
-	    			</tr>
 	    		</tbody>
     		</table>
 		</div>
