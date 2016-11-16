@@ -120,6 +120,14 @@
 
 		          	<br>
 
+		          	{{ register_form.birth_register(placeholder="Date of Birth: DD/MM/YEAR", class="form-control inputlg") }}
+		          	<!-- Shows the errors in red -->
+		          	{% for error in register_form.birth_register.errors %}
+						<span class="errors">{{ error }}</span>
+					{% endfor %}
+
+		          	<br>
+
 		          	{{ register_form.country_register(placeholder="Country", class="form-control inputlg") }}
 		          	<!-- Shows the errors in red -->
 		          	{% for error in register_form.country_register.errors %}

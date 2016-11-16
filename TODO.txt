@@ -1,12 +1,8 @@
+Password change
+
 Create a function for new comment
 
-Allowed extensions
 
-image upload post
-
-Date of birth register form
-
-Indent consistency
 
 Forms for country and Birth
 

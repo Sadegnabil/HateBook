@@ -70,7 +70,8 @@ def index():
 					password = tmpPassword.hexdigest(), 
 					registration_date = datetime.datetime.utcnow(),
 					name = register_form.name_register.data, surname = register_form.surname_register.data,
-					country = register_form.country_register.data))
+					country = register_form.country_register.data,
+					birth = register_form.birth_register.data))
 				db.session.commit()
 				# Save the username
 				session['user'] = register_form.username_register.data
@@ -90,6 +91,7 @@ def index():
 		register_form.name_register.data = ""
 		register_form.surname_register.data = ""
 		register_form.country_register.data = ""
+		register_form.birth_register.data = ""
 
 	# Render the index
 	return render_template('index.html', login_form = login_form, register_form = register_form, errorLogin=errorLogin, errorRegister = errorRegister)

@@ -22,6 +22,8 @@ class Register(FlaskForm):
 	surname_register = TextField('surname', validators = [DataRequired()])
 	# Name field
 	name_register = TextField('name', validators = [DataRequired()])
+	# Birth field
+	birth_register = TextField('name', validators = [DataRequired()])
 	# Country field
 	country_register = TextField('country', validators = [DataRequired()])
 
@@ -44,9 +46,3 @@ class Profile(FlaskForm):
 class Post(FlaskForm):
 	# Text field
 	text_post = TextAreaField('text', validators = [DataRequired()])
-
-
-# # Create the form class used to store a comment
-# class Comment(FlaskForm):
-# 	# Text field
-# 	text_comment = TextAreaField('text', validators = [DataRequired()])
