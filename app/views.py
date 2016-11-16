@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, send_from_directory, session, request, g
+from flask import render_template, redirect, url_for, session, request
 from app import app, models, db
 from .forms import *
 import datetime
@@ -7,7 +7,11 @@ import hashlib 		# For the password
 from shutil import copyfile 	# To copy the default profile picture
 from werkzeug.utils import secure_filename	# To upload the images
 
+
+# Set the allowed extensions for pictures
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+
+# Set the maximum number of reports
 MAX_REPORTS = 1
 
 # Create the route for the index
@@ -92,12 +96,15 @@ def index():
 
 
 
+
 # Create a rout for the profile page
 @app.route('/profile/<usernamePage>', methods=['GET', 'POST'])
 def profile(usernamePage):
 
 	# If there is a user connected display the profile page
 	if 'user' in session:
+
+		picture_errors = []
 
 		# Query the user from the database
 		currentUser = db.session.query(models.Users).filter_by(username = session['user']).first()
@@ -131,18 +138,20 @@ def profile(usernamePage):
 				if file:
 					filename = secure_filename(file.filename)
 					extension = filename.rsplit('.', 1)[1]
-					file.save(os.path.join(app.config['UPLOAD_FOLDER'], currentUser.username + ".jpg"))
+					# Check the picture format
+					if extension in ALLOWED_EXTENSIONS:
+						file.save(os.path.join(app.config['UPLOAD_FOLDER'], currentUser.username + ".jpg"))
+					else:
+						picture_errors.append("Wrong format ! Please upload a picture in .png, .jpg or .jpeg")
 
 		# Retrieve the userPage
 		userPage = db.session.query(models.Users).filter_by(username = usernamePage).first()
 
 		# Return the profile page
 		return render_template('profile.html', profile = profile_form,
-			currentUser = currentUser, 
-			currentUser_avatar_filename = "images/profile_pictures/" + currentUser.username + ".jpg",
-			userPage = userPage,
-			userPage_avatar_filename = "images/profile_pictures/" + userPage.username + ".jpg", 			
-			timeNow = datetime.datetime.utcnow())
+			currentUser = currentUser,
+			userPage = userPage,			
+			timeNow = datetime.datetime.utcnow(), picture_errors=picture_errors)
 
 	# Otherwise redirect the user to the index
 	return redirect(url_for('index'))
@@ -185,6 +194,7 @@ def newsfeed():
 
 
 
+
 # Route used to drop the session (disconnect the user)
 @app.route('/dropsession')
 def dropsession():
@@ -207,24 +217,43 @@ def deleteaccount():
 	# Drop the session
 	return redirect(url_for('dropsession'))
 
+
+
+
+# Route used to add a comment
 @app.route('/addComment/<id>/<text>')
 def addComment(id, text):
 	
+	# Retrieve the post
 	post = db.session.query(models.Posts).get(int(id))
+	# Increment the number of comments in this post
 	post.comments_number += 1
 
+	# Create a new comment
 	newComment = models.Comments(date = datetime.datetime.utcnow(), text = text, 
 		author = db.session.query(models.Users).filter_by(username = session['user']).first(), 
 		post = post)
+
+	# Add the comment to the database and commit the changes
 	db.session.add(newComment)
 	db.session.commit()
 
+	# Return the newsfeed page
 	return redirect(url_for('newsfeed'))
 
+
+
+
+# Route used if the comment is empty
 @app.route('/addComment/<id>/')
 def emptyComment(id):
+	# Just return newsfeed
 	return redirect(url_for('newsfeed'))
 
+
+
+
+# Route used to add a report
 @app.route('/report/<type>/<id>')
 def report(type, id):
 
@@ -233,49 +262,88 @@ def report(type, id):
 
 	# If it's a post
 	if type == 'post':
+
+		# Retrieve the post
 		post = db.session.query(models.Posts).get(int(id))
+
+		# Go through the report associated to this post 
 		for report in post.reports:
+			# If the user has already created a report about this post just return newsfeed 
+			# One user can report a post at most once
 			if report.author.username == session['user']:
 				return redirect(url_for('newsfeed'))
 
+		# If the user hasn't reported the post create a new report and add it to the database
 		newReport = models.Reports(author=user, post=post)
 		db.session.add(newReport)
+
+		# Increment the number of reports
 		post.reports_number += 1
 		db.session.commit()
+
+		# If the post has been reported by too many people delete it
 		if post.reports_number == MAX_REPORTS:
 			deleteElement(post)
-		return redirect(url_for('newsfeed'))
+
 
 	# If it's a comment
 	elif type == 'comment':
+
+		# Retrieve the comment
 		comment = db.session.query(models.Comments).get(int(id))
+
+		# Check if the user has already reported the comment
 		for report in comment.reports:
+			# If the user has already created a report about this comment just return newsfeed 
+			# One user can report a comment at most once
 			if report.author.username == session['user']:
 				return redirect(url_for('newsfeed'))
 
+		# If the user hasn't already reported the comment create a new report and add it to the database
 		newReport = models.Reports(author=user, comment=comment)
 		db.session.add(newReport)
+
+		# Increment the number of reports
 		comment.reports_number += 1
 		db.session.commit()
+
+		# If the comment has too many reports delete it
 		if comment.reports_number == MAX_REPORTS:
 			deleteElement(comment)
+
+			# Decrease the number of comments
 			post = db.session.query(models.Posts).get(int(comment.post_id))
 			post.comments_number -= 1
+
+			# Commit the changes
 			db.session.commit()
-		return redirect(url_for('newsfeed'))
 
 
+	# Return newsfeed
 	return redirect(url_for('newsfeed'))
 
 
+
+
+# Function used to delete a comment or a post
 def deleteElement(element):
+
+	# Delete all the reports about the element
 	for report in element.reports:
 		db.session.delete(report)
+
+	# Delete the element
 	db.session.delete(element)
+	# Commit the changes
 	db.session.commit()
+
+	# Return newsfeed
 	return redirect(url_for('newsfeed'))
 
 
+
+
+# Function used to handle 'hates'
 @app.route('/toogleHate/<id>')
 def toogleHate(id):
 
@@ -284,16 +352,23 @@ def toogleHate(id):
 	# Retrive the user
 	user = db.session.query(models.Users).filter_by(username = session['user']).first()
 
+	# If the user has already 'hated' the post, delete the hate and decrease the hate number
 	for hate in post.hates:
 		if hate.author.username == session['user']:
 			db.session.delete(hate)
 			post.hates_number -= 1
+
+			# Commit the changes and return newsfeed
 			db.session.commit()
 			return redirect(url_for('newsfeed'))
 
-	# Create the new hate
+	# If the user hasn't already hated the post, create the new hate and add it to the database
 	newHate = models.Hates(author = user, post = post)
 	db.session.add(newHate)
+
+	# Increase the number of hates and commit the changes
 	post.hates_number += 1
 	db.session.commit()
+
+	# Return newsfeed
 	return redirect(url_for('newsfeed'))

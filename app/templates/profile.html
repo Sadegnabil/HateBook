@@ -156,6 +156,13 @@
 	        	<div class="text-center">
 	        		<!-- Choose picture -->
       				<p><input type=file name=file class="form-control-file btn"></p>
+
+      				<!-- Display errors related to the picture format -->
+      				{% for error in picture_errors %}
+      				<span class="errors">{{ error }}</span>
+	                {% endfor %}
+	                <br>
+	                
       				<!-- Upload picture -->
          			<input type=submit value=Upload class="btn btn-primary">
          		</div>
