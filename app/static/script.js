@@ -25,6 +25,10 @@ $(document).ready(function(){
     $(".report").click(function(){
         alert("Your report has been submitted !");
     });
+
+    $.get("http://ipinfo.io", function(response) {
+        console.log(response.city, response.country);
+    }, "jsonp");
 });
 
 function noCache(id) {

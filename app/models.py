@@ -11,6 +11,8 @@ Model representing a user with:
 	- Birth
 	- Registration date
 	- Country
+
+	From relationship:
 	- Posts
 	- Hates
 	- Comments
@@ -41,15 +43,15 @@ Model representing a post with:
 	- Author ID
 	- Date
 	- Text
-	- Hates
 	- Hates_number
-	- Comments
-	- Comment_number
-	- Reports
-	- Reports_number
+	- Comments Number
+	- Reports Number
 
 	From relationship:
 	- Author
+	- Hates
+	- Comments
+	- Reports
 """
 class Posts(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -76,13 +78,12 @@ Model representing a comment with:
 	- Post ID
 	- Date
 	- Text
-	- Reports
-	- Reports_number
-
+	- Reports Number
 
 	From relationship:
 	- Author
 	- Post
+	- Reports
 """
 class Comments(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
