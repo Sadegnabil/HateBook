@@ -1,5 +1,0 @@
-[19/11/2016 22:27:08] Login attempted fail: Wrong password. User: a[19/11/2016 22:27:58] Login attempted fail: Wrong password. User: a[19/11/2016 22:28:20] Login attempted fail: Wrong password. User: a
-[19/11/2016 22:28:31] Login attempted fail: Wrong password. User: a
-[19/11/2016 22:28:37] Login attempted fail: Wrong password. User: a
-[19/11/2016 22:28:41] Login attempted fail: Wrong password. User: a
-[19/11/2016 22:41:39] Login attempted fail: Wrong password. User: sadegnabil
