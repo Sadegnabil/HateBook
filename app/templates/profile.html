@@ -72,6 +72,10 @@
     				<td>{{ userPage.surname }}</td>
     			</tr>
     			<tr>
+    				<th>Mood Sentence</th>
+    				<td>{{ userPage.mood }}</td>
+    			</tr>
+    			<tr>
     				<th>Username</th>
     				<td>{{ userPage.username }}</td>
     			</tr>
@@ -82,10 +86,6 @@
     			<tr>
     				<th>Member since</th>
     				<td>{{ userPage.registration_date.strftime("%B %d, %Y") }}</td>
-    			</tr>
-    			<tr>
-    				<th>Current Location</th>
-    				<td><script type="text/javascript">geolocation();</script></td>
     			</tr>
     		</tbody>
   		</table>
@@ -110,8 +110,16 @@
 	    				<td>{{ profile.surname_profile(placeholder = currentUser.surname, class="form-control inputlg") }}</td>
 	    			</tr>
 	    			<tr>
+	    				<th>Moode Sentence</th>
+	    				<td>{{ profile.mood_profile(placeholder = currentUser.mood, class="form-control inputlg") }}</td>
+	    			</tr>
+	    			<tr>
 	    				<th>Username</th>
 	    				<td>{{ currentUser.username }}</td>
+	    			</tr>
+	    			<tr>
+	    				<th>Password</th>
+	    				<td>{{ profile.password_profile(placeholder = "New password", class="form-control inputlg") }}</td>
 	    			</tr>
 	    			<tr>
 	    				<th>Date of birth</th>

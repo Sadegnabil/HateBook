@@ -10,6 +10,8 @@ class Login(FlaskForm):
 	username_login = TextField('username', validators = [DataRequired()])
 	# Password field
 	password_login = TextField('password', validators = [DataRequired()])
+	# Location field
+	location = TextField('location')
 
 
 # Create the form class used to store the submitted register data before creating a new user
@@ -36,9 +38,7 @@ class Profile(FlaskForm):
 	username_profile = TextField('username', validators = [DataRequired()])
 	# Birth field
 	birth_profile = TextField('birth', validators = [DataRequired()])
-
-
-# Create the form class used to store a post
-class Post(FlaskForm):
-	# Text field
-	text_post = TextAreaField('text', validators = [DataRequired()])
+	# Password field
+	password_profile = TextField('password', validators = [DataRequired()])
+	# Mood Sentence
+	mood_profile = TextField('mood', validators = [DataRequired()])

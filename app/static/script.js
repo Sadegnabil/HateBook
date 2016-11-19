@@ -51,7 +51,7 @@ function setLocation(position) {
     });
 }
 
-function getAddress() {
+function getLocation() {
     return sessionStorage.getItem('location');
 }
 

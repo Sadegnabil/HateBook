@@ -189,6 +189,10 @@ body {
 	border-color: grey;
 }
 
+#collapsePost textarea {
+	min-width: 100%;
+}
+
 
 
 

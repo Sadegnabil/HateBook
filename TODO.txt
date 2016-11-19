@@ -1,15 +1,8 @@
-Password change
-
-Add geolocation for posts
-
 flask_secure
-
-Check Introduction to web accessibility
 
 Delete Country and add Place post
 
+flask_admin
 
-
-Form for Birth
 
 Infinite scroll

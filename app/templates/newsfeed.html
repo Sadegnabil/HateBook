@@ -11,7 +11,7 @@
 
     <!-- CREATE POST BUTTON -->
     <div class="col-xs-offset-1 col-md-offset-2 col-xs-10 col-md-8">
-        <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapsePost">
+        <button class="btn btn-warning setLocation" type="button" data-toggle="collapse" data-target="#collapsePost">
             + New Post
         </button>
         <br>
@@ -19,18 +19,15 @@
         <!-- CREATE POST FORM - default collapsed -->
         <div class="collapse" id="collapsePost">
             <br>
-            <form method="POST">
-                {{ postForm.hidden_tag() }}
-                {{ postForm.text_post(placeholder = "Post something...", class="form-control inputlg") }}
-                <br>
-                <!-- Shows the errors in red -->
-                {% for error in postForm.text_post.errors %}
-                <span class="errors">{{ error }}</span>
-                {% endfor %}
-                <div class="pull-right">
-                    <input type="submit" class="btn btn-success" value="Post">
-                </div>
-            </form>
+
+            <textarea type="input" name="Post Input" class="inputlg" id="postText" placeholder="Post something...."></textarea>
+            <br>
+
+            <div class="pull-right">
+                <!-- Use the addPost route with the right location and text -->
+                <button class="btn btn-primary" onclick="window.location = '/addPost/' + $('#postText').val() + '/' + getLocation();">
+                    Post</button>
+            </div>
         </div>
     </div>
 
@@ -60,8 +57,8 @@
                 Posted {{time[0:-7]}} ago
 
                 at {{ post.location }}
-
-                <a class="report" href="/report/post/{{ post.id }}">|Report|</a>
+                <br>
+                <a class="report pull-right" href="/report/post/{{ post.id }}">|Report|</a>
             </div>
         </div>
 

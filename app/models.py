@@ -10,6 +10,7 @@ Model representing a user with:
 	- Password
 	- Birth
 	- Registration date
+	- Mood Sentence
 
 	From relationship:
 	- Posts
@@ -24,7 +25,8 @@ class Users(db.Model):
 	surname = db.Column(db.String(20))
 	username = db.Column(db.String(20))
 	password = db.Column(db.String(100))
-	
+
+	mood = db.Column(db.String(100), default = "Hello world!")
 	birth = db.Column(db.String(20))
 	registration_date = db.Column(db.DateTime)
 

@@ -12,7 +12,7 @@ from werkzeug.utils import secure_filename	# To upload the images
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 # Set the maximum number of reports
-MAX_REPORTS = 1
+MAX_REPORTS = 5
 
 # Create the route for the index
 @app.route('/', methods=['GET', 'POST'])
@@ -25,8 +25,7 @@ def index():
 	# Initialise the error lists
 	errorLogin = []
 	errorRegister = []
-	localStorage.setItem();
-
+	
 	if request.method == 'POST':
 		# If the login_form is validated
 		if login_form.validate_on_submit():
@@ -43,15 +42,17 @@ def index():
 					# Save the username
 					session['user'] = user.username
 
+					session['location'] = login_form.location.data
+
 					# Directly redirect on newsfeed
 					return redirect(url_for('newsfeed'))
 
 				# If the password is wrong
 				else:
 					# Open the log file and print the error
-					with open('app/static/logs.txt', 'w') as file:
+					with open('app/static/logs.txt', 'a') as file:
 						timeLog = datetime.datetime.utcnow().strftime("%d/%m/%Y %H:%M:%S")
-						errorLog = "[" + timeLog + "] Login attempted fail: Wrong password. User: " + user.username
+						errorLog = "[" + timeLog + "] Login attempted fail: Wrong password. User: " + user.username + "\n"
 						file.write(errorLog)
 
 			
@@ -135,6 +136,14 @@ def profile(usernamePage):
 					currentUser.surname = profile_form.surname_profile.data
 				if profile_form.birth_profile.data != "":
 					currentUser.birth = profile_form.birth_profile.data
+				if profile_form.mood_profile.data != "":
+					currentUser.mood = profile_form.mood_profile.data
+				if profile_form.password_profile.data != "":
+					# Encrypt the password
+					tmpPassword = hashlib.sha1()
+					tmpPassword.update(profile_form.password_profile.data.encode('utf-8'))
+					password = tmpPassword.hexdigest()
+					currentUser.password = password
 
 				# Commit the changes
 				db.session.commit()
@@ -174,28 +183,15 @@ def newsfeed():
 	# If there is a user connected display the profile page
 	if 'user' in session:
 
-		# Create the forms
-		postForm = Post()
-		# commentForm = Comment()
-
 		# Query the user from the database
 		user = db.session.query(models.Users).filter_by(username = session['user']).first()
-
-		if request.method == 'POST':
-			if postForm.validate_on_submit():
-				newPost = models.Posts(date = datetime.datetime.utcnow(), text = postForm.text_post.data, author = user)
-				db.session.add(newPost)
-				db.session.commit()
-				postForm.text_post.data = ""
-
 
 		# Query the different posts from the database
 		posts = models.Posts.query.all()
 
 
 		# Return the newsfeed page
-		return render_template('newsfeed.html', currentUser = user, posts = posts, postForm = postForm,
-			currentUser_avatar_filename = "images/profile_pictures/" + user.username + ".jpg", timeNow = datetime.datetime.utcnow())
+		return render_template('newsfeed.html', currentUser = user, posts = posts, timeNow = datetime.datetime.utcnow())
 
 	# Otherwise redirect the user to the index
 	return redirect(url_for('index'))
@@ -228,6 +224,23 @@ def deleteaccount():
 
 
 
+
+@app.route('/addPost/<text>/<location>')
+def addPost(text, location):
+	if len(text) > 0:
+		# Query the user from the database
+		user = db.session.query(models.Users).filter_by(username = session['user']).first()
+
+		# Create the post
+		newPost = models.Posts(date = datetime.datetime.utcnow(), text = text, author = user, location = location)
+		db.session.add(newPost)
+		db.session.commit()
+	return redirect(url_for('newsfeed'))
+
+
+
+
+
 # Route used to add a comment
 @app.route('/addComment/<id>/<text>')
 def addComment(id, text):
@@ -240,7 +253,7 @@ def addComment(id, text):
 	# Create a new comment
 	newComment = models.Comments(date = datetime.datetime.utcnow(), text = text, 
 		author = db.session.query(models.Users).filter_by(username = session['user']).first(), 
-		location = location, post = post)
+		post = post)
 
 	# Add the comment to the database and commit the changes
 	db.session.add(newComment)
