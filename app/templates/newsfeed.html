@@ -55,8 +55,9 @@
                 {% set time = timeNow - post.date %}
                 {% set time = time|string %}
                 Posted {{time[0:-7]}} ago
-
+                {% if post.location != "null" %}
                 at {{ post.location }}
+                {% endif %}
                 <br>
                 <a class="report pull-right" href="/report/post/{{ post.id }}">|Report|</a>
             </div>
