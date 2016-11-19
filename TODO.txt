@@ -1,7 +1,5 @@
 Password change
 
-Terms and conditions
-
 Add geolocation for posts
 
 flask_secure

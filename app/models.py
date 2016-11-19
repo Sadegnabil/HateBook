@@ -40,6 +40,7 @@ Model representing a post with:
 	- ID (Primary key)
 	- Author ID
 	- Date
+	- Location
 	- Text
 	- Hates_number
 	- Comments Number
@@ -56,6 +57,7 @@ class Posts(db.Model):
 
 	author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 	date = db.Column(db.DateTime)
+	location = db.Column(db.String(50))
 	text = db.Column(db.String(1000))
 
 	hates = db.relationship('Hates', backref='post', lazy='dynamic')

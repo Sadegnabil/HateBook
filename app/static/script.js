@@ -26,16 +26,33 @@ $(document).ready(function(){
         alert("Your report has been submitted !");
     });
 
-    // console.log(navigator.geolocation.getCurrentPosition(showPosition));
-
+    $(".setLocation").click(function(){
+        navigator.geolocation.getCurrentPosition(setLocation);
+    });    
 });
 
-function geolocation() {
-    navigator.geolocation.getCurrentPosition(convertToAddress);
+function setLocation(position) {
+    var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+
+        // This is checking to see if the Geoeode Status is OK before proceeding
+        if (status == google.maps.GeocoderStatus.OK) {
+            for (var i = 0; i < results[0].address_components.length; i++) {
+                var address = results[0].address_components[i];
+                // check if this entry in address_components has a type of country
+                if (address.types[0] == 'country')
+                  country = address.long_name;
+                else if (address.types[0] == ['locality'])       // City
+                  city = address.long_name;
+            }
+            sessionStorage.setItem('location', city + ", " + country);
+        }
+    });
 }
 
-function convertToAddress(position) {
-    
+function getAddress() {
+    return sessionStorage.getItem('location');
 }
 
 function noCache(id) {

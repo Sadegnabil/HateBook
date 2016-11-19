@@ -25,6 +25,7 @@ def index():
 	# Initialise the error lists
 	errorLogin = []
 	errorRegister = []
+	localStorage.setItem();
 
 	if request.method == 'POST':
 		# If the login_form is validated
@@ -239,7 +240,7 @@ def addComment(id, text):
 	# Create a new comment
 	newComment = models.Comments(date = datetime.datetime.utcnow(), text = text, 
 		author = db.session.query(models.Users).filter_by(username = session['user']).first(), 
-		post = post)
+		location = location, post = post)
 
 	# Add the comment to the database and commit the changes
 	db.session.add(newComment)
@@ -252,7 +253,7 @@ def addComment(id, text):
 
 
 # Route used if the comment is empty
-@app.route('/addComment/<id>/')
+@app.route('/addComment/<id>')
 def emptyComment(id):
 	# Just return newsfeed
 	return redirect(url_for('newsfeed'))

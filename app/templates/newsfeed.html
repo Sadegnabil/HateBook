@@ -59,6 +59,8 @@
                 {% set time = time|string %}
                 Posted {{time[0:-7]}} ago
 
+                at {{ post.location }}
+
                 <a class="report" href="/report/post/{{ post.id }}">|Report|</a>
             </div>
         </div>
@@ -90,7 +92,7 @@
 
                 <div class="pull-right">
                     <!-- Use the addComment route with the right id and text -->
-                    <button class="btn btn-primary" onclick="window.location = '/addComment/' + {{ post.id }} + '/' + $('#text_' +{{i}}).val()">
+                    <button class="btn btn-primary" onclick="window.location = '/addComment/' +  {{ post.id }} + '/' + $('#text_' +{{i}}).val()">
                         Comment</button>
                 </div>
                 <br><br>
