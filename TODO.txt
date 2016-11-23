@@ -1,8 +1,8 @@
 flask_secure
 
-Delete Country and add Place post
-
 flask_admin
+
+Question Mark post/comment
 
 
 Infinite scroll

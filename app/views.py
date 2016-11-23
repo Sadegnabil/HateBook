@@ -12,7 +12,7 @@ from werkzeug.utils import secure_filename	# To upload the images
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 # Set the maximum number of reports
-MAX_REPORTS = 5
+MAX_REPORTS = 1
 
 # Create the route for the index
 @app.route('/', methods=['GET', 'POST'])
@@ -225,7 +225,7 @@ def deleteaccount():
 
 
 
-@app.route('/addPost/<text>/<location>')
+@app.route('/addPost/<location>/<text>')
 def addPost(text, location):
 	if len(text) > 0:
 		# Query the user from the database
