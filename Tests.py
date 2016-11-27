@@ -15,6 +15,10 @@ def retrievePosts():
     return models.Posts.query.all()
 
 
+def retrieveComment():
+    return models.Comments.query.all()
+
+
 
 class TestCase(unittest.TestCase):
     def setUp(self):
@@ -189,7 +193,40 @@ class TestCase(unittest.TestCase):
 
 
     def test_comments(self):
-        pass
+        
+        # Retrieve the users
+        user1 = retrieveUser("paulMark")
+        user2 = retrieveUser("marieBlum")
+
+        # Retrieve the posts
+        post1 = retrievePosts()[-3]
+        post2 = retrievePosts()[-2]
+        post3 = retrievePosts()[-1]
+
+        # Retrieve the comments
+        comment1 = retrieveComment()[-3]
+        comment2 = retrieveComment()[-2]
+        comment3 = retrieveComment()[-1]
+
+
+        # Test if the comments have been created
+        assert comment1 != None
+        assert comment2 != None
+        assert comment3 != None
+
+
+        # Test the comments information
+        assert comment1.author == user1
+        assert comment1.text == "Hello!"
+        assert comment1.post == post2
+
+        assert comment2.author == user1
+        assert comment2.text == "Yes!"
+        assert comment2.post == post3
+
+        assert comment3.author == user2
+        assert comment3.text == "I'm here!"
+        assert comment3.post == post1
 
     def test_reports(self):
 
