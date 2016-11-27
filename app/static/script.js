@@ -28,7 +28,17 @@ $(document).ready(function(){
 
     $(".setLocation").click(function(){
         navigator.geolocation.getCurrentPosition(setLocation);
-    });    
+    });
+
+    $('#postText').html("");
+
+    $('#modify').click(function() {
+        var password1 = $('#pwd1').val();
+        var password2 = $('#pwd2').val();
+        if (password1 != password2) {
+            alert("The passwords don't match");
+        }
+    });
 });
 
 function setLocation(position) {
@@ -82,6 +92,19 @@ function toogleView(toogle) {
 		$(".modify").hide();
 		$(".view").show();		
 	}
+}
+
+function addPost() {
+    var url = '/addPost/' + getLocation() + '/' + $('#postText').val();
+    var urlEncoded = encodeURIComponent(url);
+    window.location.replace(urlEncoded);
+}
+
+function addComment(id) {
+    var url = '/addComment/' +  id + '/' + $('#text_' + (id-1)).val();
+    alert(id);
+    var urlEncoded = encodeURIComponent(url);
+    window.location.replace(urlEncoded);
 }
 
 

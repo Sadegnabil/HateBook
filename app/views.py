@@ -138,7 +138,7 @@ def profile(usernamePage):
 					currentUser.birth = profile_form.birth_profile.data
 				if profile_form.mood_profile.data != "":
 					currentUser.mood = profile_form.mood_profile.data
-				if profile_form.password_profile.data != "":
+				if profile_form.password_profile.data != "" and profile_form.password_profile.data == profile_form.confirm_password_profile.data:
 					# Encrypt the password
 					tmpPassword = hashlib.sha1()
 					tmpPassword.update(profile_form.password_profile.data.encode('utf-8'))
