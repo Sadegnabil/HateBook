@@ -63,28 +63,24 @@ class TestCase(unittest.TestCase):
 
 
         # Create 3 comments
-        comment1 = models.Comments(date = datetime.datetime.utcnow(), text = "Hello!", 
-                        author = user1, 
-                        post = post2)
+        comment1 = models.Comments(date = datetime.datetime.utcnow(), text = "Hello!", author = user1, post = post2)
 
         post2.comments_number += 1
 
-        comment2 = models.Comments(date = datetime.datetime.utcnow(), text = "Yes!", 
-                        author = user1, 
-                        post = post3)
+        comment2 = models.Comments(date = datetime.datetime.utcnow(), text = "Yes!", author = user1, post = post3)
 
         post3.comments_number += 1
 
-        comment3 = models.Comments(date = datetime.datetime.utcnow(), text = "I'm here!", 
-                        author = user2, 
-                        post = post1)
+        comment3 = models.Comments(date = datetime.datetime.utcnow(), text = "I'm here!", author = user2, post = post1)
 
         post1.comments_number += 1
 
 
-        # Create 1 report
-        report = models.Reports(author=user1, post=post2)
+        # Create 2 reports
+        report1 = models.Reports(author=user1, post=post2)
         post2.reports_number += 1
+        report2 = models.Reports(author=user1, post=post3)
+        post3.reports_number += 1
 
 
         # Add everything
@@ -100,7 +96,8 @@ class TestCase(unittest.TestCase):
         db.session.add(comment1)
         db.session.add(comment2)
         db.session.add(comment3)
-        db.session.add(report)
+        db.session.add(report1)
+        db.session.add(report2)
 
 
 
@@ -183,15 +180,30 @@ class TestCase(unittest.TestCase):
         post2 = retrievePosts()[-2]
         post3 = retrievePosts()[-1]
 
+
+        # Test the number of hates
         assert post1.hates_number == 2
         assert post2.hates_number == 2
         assert post3.hates_number == 0
+
+
 
     def test_comments(self):
         pass
 
     def test_reports(self):
-        pass
+
+        # Retrieve the posts
+        post1 = retrievePosts()[-3]
+        post2 = retrievePosts()[-2]
+        post3 = retrievePosts()[-1]
+
+
+        # Test the number of hates
+        assert post1.reports_number == 0
+        assert post2.reports_number == 1
+        assert post3.reports_number == 1
+
 
 if __name__ == '__main__':
     unittest.main()
