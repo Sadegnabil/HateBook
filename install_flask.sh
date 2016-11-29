@@ -7,3 +7,4 @@ venv/bin/pip install flask-whooshalchemy
 venv/bin/pip install flask-wtf
 venv/bin/pip install flask-babel
 venv/bin/pip install coverage
+venv/bin/pip install flask-admin
