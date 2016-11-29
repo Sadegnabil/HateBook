@@ -1,1 +1,1 @@
-flask_admin
+dynamic loading/ infinite scroll

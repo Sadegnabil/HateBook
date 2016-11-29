@@ -5,16 +5,17 @@ import hashlib
 import datetime
 
 
-
+# Function used to retrieve a user by its username
 def retrieveUser(username):
     return db.session.query(models.Users).filter_by(username = username).first()
 
 
-
+# Function used to retrieve all the existing posts
 def retrievePosts():
     return models.Posts.query.all()
 
 
+# Function used to retrieve all the existing comments
 def retrieveComment():
     return models.Comments.query.all()
 

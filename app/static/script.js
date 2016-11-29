@@ -20,18 +20,28 @@ $(document).ready(function(){
         $("#delete_account_window").modal();
     });
 
+
+    // Check if a modal window was previously opened and check which one was open
     autoModal(sessionStorage.getItem('modal'));
 
+
+    // When a user clicks on the report button display an alert
     $(".report").click(function(){
         alert("Your report has been submitted !");
     });
 
+
+    // Retrieve the location when the user clicks on the New Post button
     $(".setLocation").click(function(){
         navigator.geolocation.getCurrentPosition(setLocation);
     });
 
+
+    // Reset the postText field
     $('#postText').html("");
 
+
+    // Check if the passwords are matching when the user wants to change his/her password
     $('#modify').click(function() {
         var password1 = $('#pwd1').val();
         var password2 = $('#pwd2').val();
@@ -41,30 +51,45 @@ $(document).ready(function(){
     });
 });
 
+
+// Set the location of the user
 function setLocation(position) {
+
+    // Get the coordinates
     var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+    // Create a geocoder
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'latLng': latlng }, function (results, status) {
 
-        // This is checking to see if the Geoeode Status is OK before proceeding
+        // Check if the Geocoder is OK
         if (status == google.maps.GeocoderStatus.OK) {
             for (var i = 0; i < results[0].address_components.length; i++) {
                 var address = results[0].address_components[i];
-                // check if this entry in address_components has a type of country
+
+                // check if this entry is the country
                 if (address.types[0] == 'country')
                   country = address.long_name;
-                else if (address.types[0] == ['locality'])       // City
+
+                // check if this entry is the locality/city
+                else if (address.types[0] == ['locality'])
                   city = address.long_name;
             }
+
+            // Save the location
             sessionStorage.setItem('location', city + ", " + country);
         }
     });
 }
 
+
+// Get the location of the user
 function getLocation() {
     return sessionStorage.getItem('location');
 }
 
+
+// Prevent image cachin by adding the time to the image name
 function noCache(id) {
     // Append the datetime string to the images path to prevent cache
     var d = new Date();
@@ -72,6 +97,8 @@ function noCache(id) {
     $("#" + id).attr('src', src);
 }
 
+
+// Switch the modality according to which modal window was previously open
 function autoModal(modal) {
     if (modal == 1) {
         $("#login_modal_form").modal();
@@ -81,6 +108,7 @@ function autoModal(modal) {
         $("#register_modal_form").modal();
     }
 }
+
 
 // Function used to toogle between the "view" and the "modify" profile 
 function toogleView(toogle) {
@@ -94,20 +122,33 @@ function toogleView(toogle) {
 	}
 }
 
+
+// Function used to add a post
 function addPost() {
+    // Create the url to create the post and retrieve the text
     var url = '/addPost/' + getLocation() + '/' + $('#postText').val();
     var urlEncoded = encodeURIComponent(url);
+
+    // Use the url to create the post
     window.location.replace(urlEncoded);
 }
 
+
+// Function used to add a comment
 function addComment(id) {
+    // Create the url to create the comment and retrieve the text
     var url = '/addComment/' +  id + '/' + $('#text_' + (id-1)).val();
-    alert(id);
     var urlEncoded = encodeURIComponent(url);
+
+     // Use the url to create the comment
     window.location.replace(urlEncoded);
 }
 
+
+// Check if the user has admin rights to access the admin page
 function adminRights() {
+
+    // If he doesn't have the rights send it back to the newsfeed page
     if (sessionStorage.getItem('user') != 'admin') {
         alert("You don't have the rights to access this page");
         window.location.replace("/newsfeed");
