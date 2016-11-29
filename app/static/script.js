@@ -107,5 +107,11 @@ function addComment(id) {
     window.location.replace(urlEncoded);
 }
 
+function adminRights() {
+    if (sessionStorage.getItem('user') != 'admin') {
+        alert("You don't have the rights to access this page");
+        window.location.replace("/newsfeed");
+    }
+}
 
 

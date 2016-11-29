@@ -10,6 +10,9 @@ UPLOAD_FOLDER = 'app/static/images/profile_pictures'
 app = Flask(__name__)
 app.config.from_object('config')
 
+from flask_admin import Admin
+admin = Admin(app,template_mode='bootstrap3', base_template='admin.html')
+
 # Generate a secret key
 app.secret_key = os.urandom(24)
 

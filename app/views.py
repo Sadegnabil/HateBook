@@ -8,6 +8,28 @@ from shutil import copyfile 	# To copy the default profile picture
 from werkzeug.utils import secure_filename	# To upload the images
 
 
+from app import admin
+from flask.ext.admin.contrib.sqla import ModelView 
+from flask_admin import Admin, AdminIndexView
+
+@app.before_request
+def before_request():
+	# print (request.endpoint[0:5])
+	# if request.endpoint[0:5] == 'admin':
+	if 'user' in session:
+		print(session['user'])
+		if session['user'] != "admin":
+			redirect(url_for('newsfeed'))
+admin.add_view(ModelView(models.Users, db.session))
+
+# @expose('/admin')
+# def admin():
+# 	if session['user'] != "admin":
+# 		return redirect(url_for('newsfeed'))
+# 	else:
+# 		admin.add_view(ModelView(models.Users, db.session))
+
+
 # Set the allowed extensions for pictures
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
