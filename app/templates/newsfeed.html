@@ -108,10 +108,10 @@
                 <div class="row comment">
 
                     <!-- Author image -->
-                    <img class="comment_profile_picture" alt="Profile Picture" id="image_{{ comment.id }}"
+                    <img class="comment_profile_picture" alt="Profile Picture" id="cimage_{{ comment.id }}"
                          src="{{ url_for('static', filename='images/profile_pictures/' + comment.author.username + '.jpg') }}">
                     <!-- Prevent Caching -->
-                    <script type="text/javascript">noCache("image_{{ comment.id }}")</script>
+                    <script type="text/javascript">noCache("cimage_{{ comment.id }}")</script>
 
                     <!-- Author name -->
                     <a href="/profile/{{comment.author.username}}">
