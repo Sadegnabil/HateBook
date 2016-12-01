@@ -11,3 +11,5 @@
 [01/12/2016 21:52:23] Login attempted fail: Wrong password. User: fireforx
 [01/12/2016 21:54:27] Login attempted fail: Wrong password. User: ddglacier
 [01/12/2016 22:09:40] Login attempted fail: Wrong password. User: whatthehell
+[01/12/2016 22:12:38] Login attempted fail: Wrong password. User: paracar
+[01/12/2016 22:19:04] Login attempted fail: Wrong password. User: rpt
