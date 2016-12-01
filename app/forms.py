@@ -40,5 +40,7 @@ class Profile(FlaskForm):
 	birth_profile = TextField('birth', validators = [DataRequired()])
 	# Password field
 	password_profile = TextField('password', validators = [DataRequired()])
+	# Confirm password field
+	confirm_password_profile = TextField('confirm_password', validators = [DataRequired()])
 	# Mood Sentence
 	mood_profile = TextField('mood', validators = [DataRequired()])

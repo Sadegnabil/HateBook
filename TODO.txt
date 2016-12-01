@@ -1,8 +1,1 @@
-flask_secure
-
-Delete Country and add Place post
-
-flask_admin
-
-
-Infinite scroll
+dynamic loading/ infinite scroll

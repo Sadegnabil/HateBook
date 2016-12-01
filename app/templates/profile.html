@@ -118,8 +118,12 @@
 	    				<td>{{ currentUser.username }}</td>
 	    			</tr>
 	    			<tr>
-	    				<th>Password</th>
-	    				<td>{{ profile.password_profile(placeholder = "New password", class="form-control inputlg") }}</td>
+	    				<th>New password</th>
+	    				<td>{{ profile.password_profile(placeholder = "New password", class="form-control inputlg", type="password", id="pwd1") }}</td>
+	    			</tr>
+	    			<tr>
+	    				<th>Confirm new password</th>
+	    				<td>{{ profile.confirm_password_profile(placeholder = "Confirm new password", class="form-control inputlg", type="password", id="pwd2") }}</td>
 	    			</tr>
 	    			<tr>
 	    				<th>Date of birth</th>
@@ -134,7 +138,7 @@
 		</div>
 
 		<!-- Submit form button -->
-		<input type="submit" class="btn btn-primary" value="Modify" name="Form">
+		<input type="submit" class="btn btn-primary" value="Modify" name="Form" id="modify">
 		<br>
 	</form>
 	<br>

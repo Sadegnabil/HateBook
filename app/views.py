@@ -8,6 +8,17 @@ from shutil import copyfile 	# To copy the default profile picture
 from werkzeug.utils import secure_filename	# To upload the images
 
 
+from app import admin
+from flask_admin.contrib.sqla import ModelView 
+from flask_admin import Admin, AdminIndexView
+
+# Add the different models to the admin page
+admin.add_view(ModelView(models.Users, db.session))
+admin.add_view(ModelView(models.Posts, db.session))
+admin.add_view(ModelView(models.Comments, db.session))
+admin.add_view(ModelView(models.Hates, db.session))
+admin.add_view(ModelView(models.Reports, db.session))
+
 # Set the allowed extensions for pictures
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
@@ -138,7 +149,7 @@ def profile(usernamePage):
 					currentUser.birth = profile_form.birth_profile.data
 				if profile_form.mood_profile.data != "":
 					currentUser.mood = profile_form.mood_profile.data
-				if profile_form.password_profile.data != "":
+				if profile_form.password_profile.data != "" and profile_form.password_profile.data == profile_form.confirm_password_profile.data:
 					# Encrypt the password
 					tmpPassword = hashlib.sha1()
 					tmpPassword.update(profile_form.password_profile.data.encode('utf-8'))
@@ -225,7 +236,7 @@ def deleteaccount():
 
 
 
-@app.route('/addPost/<text>/<location>')
+@app.route('/addPost/<location>/<text>')
 def addPost(text, location):
 	if len(text) > 0:
 		# Query the user from the database

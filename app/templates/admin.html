@@ -1,0 +1,13 @@
+{% extends 'admin/base.html' %} 
+{% block head_css %}
+{{ super() }}
+
+<!-- Check if the current user is the admin -->
+<!-- If not display error message -->
+<script type="text/javascript">
+	if (sessionStorage.getItem('user') != 'admin') {
+        alert("You don't have the rights to access this page");
+        window.location.replace("/newsfeed");
+    }
+</script>
+{% endblock %}

@@ -4,6 +4,9 @@
 <br>
 <div class="row">
 
+    <!-- Sav the current user username -->
+    <script type="text/javascript">sessionStorage.setItem('user', '{{currentUser.username}}');</script>
+
     <!-- GREETING -->
     <div class="col-xs-10 col-sm-10 col-lg-10">
         <h2>Welcome {{ currentUser.name }}</h2>
@@ -20,13 +23,15 @@
         <div class="collapse" id="collapsePost">
             <br>
 
-            <textarea type="input" name="Post Input" class="inputlg" id="postText" placeholder="Post something...."></textarea>
+            <textarea type="input" name="Post Input" class="inputlg" id="postText" placeholder="Post something....">
+            </textarea>
             <br>
 
             <div class="pull-right">
                 <!-- Use the addPost route with the right location and text -->
-                <button class="btn btn-primary" onclick="window.location = '/addPost/' + $('#postText').val() + '/' + getLocation();">
-                    Post</button>
+                <button class="btn btn-primary" onclick="addPost();">
+                    Post
+                </button>
             </div>
         </div>
     </div>
@@ -91,8 +96,9 @@
 
                 <div class="pull-right">
                     <!-- Use the addComment route with the right id and text -->
-                    <button class="btn btn-primary" onclick="window.location = '/addComment/' +  {{ post.id }} + '/' + $('#text_' +{{i}}).val()">
-                        Comment</button>
+                    <button class="btn btn-primary" onclick="addComment({{post.id}});">
+                        Comment
+                    </button>
                 </div>
                 <br><br>
 
